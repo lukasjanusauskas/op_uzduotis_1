@@ -11,4 +11,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="kursiokai.txt" />
+  </ItemGroup>
 </Project>

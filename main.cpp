@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -22,7 +23,7 @@ void spausdinti_rezultatus(std::vector<Studentas> stud);
 
 Studentas generuoti_rand_stud();
 std::vector<Studentas> generuoti_atsitiktinius(unsigned int n);
-//std::vector<Studentas> nuskaityti_faila();
+std::vector<Studentas> nuskaityti_faila(std::string failas);
 
 float vidurkis(std::vector<int> pazymiai);
 float mediana(std::vector<int> pazymiai);
@@ -31,7 +32,7 @@ float galutinis(float paz_agg, int egz_paz);
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
 
-	std::vector<Studentas> stud = generuoti_atsitiktinius(20);
+	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
 	spausdinti_rezultatus(stud);
 
 	return 0;
@@ -150,6 +151,28 @@ std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
 	std::vector<Studentas> stud;
 	for (int i = 0; i < n; i++)
 		stud.push_back(generuoti_rand_stud());
+
+	return stud;
+}
+
+std::vector<Studentas> nuskaityti_faila(std::string failas) {
+	std::vector<Studentas> stud;
+	std::ifstream fr(failas);
+
+	// Praleisti pirmà eilutæ
+	std::string tmp_str;
+	std::getline(fr, tmp_str, '\n');
+
+	while (!fr.eof()) {
+		Studentas s;
+		int nd_paz[5];
+
+		fr >> s.vardas >> s.pavarde >> nd_paz[0] >> nd_paz[1] >> nd_paz[2] 
+			>> nd_paz[3] >> nd_paz[4] >> s.egz_pazymys;
+		s.nd_pazymiai.assign(nd_paz, nd_paz + 5);
+
+		stud.push_back(s);
+	}
 
 	return stud;
 }

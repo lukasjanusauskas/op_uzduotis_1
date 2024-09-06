@@ -2,6 +2,11 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
+#include <random>
+#include <time.h>
+
+#define MAX_RAND_PAZ 10
 
 struct Studentas {
 	std::string vardas;
@@ -11,17 +16,23 @@ struct Studentas {
 };
 
 Studentas irasyti_studenta();
+std::vector<Studentas> irasyti_studentus();
+void spausdinti_stud_duom(Studentas stud);
+void spausdinti_rezultatus(std::vector<Studentas> stud);
+
+Studentas generuoti_rand_stud();
+std::vector<Studentas> generuoti_atsitiktinius(unsigned int n);
+//std::vector<Studentas> nuskaityti_faila();
+
 float vidurkis(std::vector<int> pazymiai);
 float mediana(std::vector<int> pazymiai);
 float galutinis(float paz_agg, int egz_paz);
-std::vector<Studentas> irasyti_studentus();
 
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
 
-	std::vector<Studentas> stud = irasyti_studentus();
-	for (auto s : stud)
-		std::cout << mediana(s.nd_pazymiai) << " " << vidurkis(s.nd_pazymiai) << std::endl;
+	std::vector<Studentas> stud = generuoti_atsitiktinius(20);
+	spausdinti_rezultatus(stud);
 
 	return 0;
 }
@@ -95,4 +106,50 @@ float mediana(std::vector<int> pazymiai) {
 
 float galutinis(float paz_agg, int egz_paz) {
 	return 0.4 * paz_agg + 0.6 * egz_paz;
+}
+
+void spausdinti_stud_duom(Studentas stud) {
+	float vid = vidurkis(stud.nd_pazymiai);
+	float med = mediana(stud.nd_pazymiai);
+
+	std::cout << stud.vardas << "\t" << stud.pavarde << "\t";
+	std::cout << galutinis(vid, stud.egz_pazymys) << "\t\t" << galutinis(med, stud.egz_pazymys) << std::endl;
+}
+
+void spausdinti_rezultatus(std::vector<Studentas> stud) {
+	std::cout << "Vardas\tPavardë\tGalutinis (vid.) / Galutinis(med.)\n";
+	std::cout << "-----------------------------------------------------\n";
+	std::cout << std::setprecision(2);
+	for (auto s : stud)
+		spausdinti_stud_duom(s);
+}
+
+Studentas generuoti_rand_stud() {
+	std::string vardai[] = { "Lukas", "Petras", "Jonas", "Algis" };
+	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valanèiûnas" };
+
+	int vardai_ilgis = sizeof(vardai) / sizeof(std::string);
+	int pavard_ilgis = sizeof(pavard) / sizeof(std::string);
+
+	Studentas s;
+	s.vardas = vardai[rand() % vardai_ilgis];
+	s.pavarde = pavard[rand() % pavard_ilgis];
+
+	int paz_skaicius = rand() % MAX_RAND_PAZ;
+	for (paz_skaicius; paz_skaicius > 0; paz_skaicius--)
+		s.nd_pazymiai.push_back(rand() % 10 + 1);
+
+	s.egz_pazymys = rand() % 10 + 1;
+
+	return s;
+}
+
+std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
+	srand(time(0));
+
+	std::vector<Studentas> stud;
+	for (int i = 0; i < n; i++)
+		stud.push_back(generuoti_rand_stud());
+
+	return stud;
 }

@@ -88,8 +88,6 @@ float vidurkis(std::vector<int> pazymiai) {
 	int sum = 0;
 	for (int paz : pazymiai)
 		sum += paz;
-		
-	float ret = ((float)sum) / (pazymiai.size());
 
 	return ((float)sum) / (pazymiai.size());
 }
@@ -126,7 +124,7 @@ void spausdinti_rezultatus(std::vector<Studentas> stud) {
 	std::cout << "Vardas\tPavardë\tGalutinis (vid.) / Galutinis(med.)\n";
 	std::cout << "-----------------------------------------------------\n";
 	std::cout << std::setprecision(2);
-	for (auto s : stud)
+	for (auto& s : stud)
 		spausdinti_stud_duom(s);
 }
 
@@ -174,7 +172,7 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 
 	while (!fr.eof()) {
 		Studentas s;
-		int nd_paz[5];
+		int nd_paz[5]{};
 
 		fr >> s.vardas >> s.pavarde >> nd_paz[0] >> nd_paz[1] >> nd_paz[2] 
 			>> nd_paz[3] >> nd_paz[4] >> s.egz_pazymys;

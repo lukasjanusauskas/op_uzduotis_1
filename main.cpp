@@ -1,4 +1,5 @@
 #include <iostream>
+#include <regex>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -32,14 +33,14 @@ float galutinis(float paz_agg, int egz_paz);
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian"); // Lietuviu lokalizavimas
 
-	std::vector<Studentas> stud = generuoti_atsitiktinius(25);
+	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
 	spausdinti_rezultatus(stud);
 
 	return 0;
 }
 
 Studentas irasyti_studenta() {
-	// Vieno studento irasimas
+	// Vieno studento irasymas
 	Studentas stud;
 
 	std::cout << "Árağyti varda ir pavarde(ivedus vardà paspausti Enter):\n";
@@ -50,7 +51,7 @@ Studentas irasyti_studenta() {
 	while (true) {
 		std::cin >> paz;
 
-		if (paz == 0)
+		if (paz == 0) // Irasoma, kol nepaspaudzia 0
 			break;
 
 		stud.nd_pazymiai.push_back(paz);
@@ -73,11 +74,14 @@ std::vector<Studentas> irasyti_studentus() {
 
 		switch (testi)
 		{
+		// Jei nuspaudzia 't', ivyksta irsaymas
 		case 't':
 			sarasas.push_back(irasyti_studenta());
 			break;
+		// Jei nuspaudzia 'n', grazinama, nevyksta irasymas
 		case 'n':
 			return sarasas;
+		// Jei nuspaudzia kazka kito, kartojamas klausimas
 		default:
 			break;
 		}
@@ -99,7 +103,9 @@ float mediana(std::vector<int> pazymiai) {
 
 	std::sort(pazymiai.begin(), pazymiai.end());
 
-
+	// Klasikine medianos formule
+	// Jei vektoriaus ilgis nelyginis, paimamas floor(n/2) (arba paparastai: vidurinis)
+	// Jei lyginis, paimamas viduriniu vidurkis
 	if (ilgis % 2 == 1)
 		return pazymiai.at(ilgis / 2);
 	else
@@ -115,15 +121,22 @@ void spausdinti_stud_duom(Studentas stud) {
 	float vid = vidurkis(stud.nd_pazymiai);
 	float med = mediana(stud.nd_pazymiai);
 
-	std::cout << stud.vardas << "\t" << stud.pavarde << "\t";
-	std::cout << galutinis(vid, stud.egz_pazymys) << "\t\t" << galutinis(med, stud.egz_pazymys) << std::endl;
+	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
+	std::cout << std::setw(10) << stud.vardas
+			  << std::setw(15) << stud.pavarde;
+	std::cout << std::left
+			  << std::setw(17) << galutinis(vid, stud.egz_pazymys) 
+			  << std::setw(17) << galutinis(med, stud.egz_pazymys) << std::endl;
 }
 
 void spausdinti_rezultatus(std::vector<Studentas> stud) {
 	// Spausdinti visu studentu duomenis
-	std::cout << "Vardas\tPavardë\tGalutinis (vid.) / Galutinis(med.)\n";
-	std::cout << "-----------------------------------------------------\n";
-	std::cout << std::setprecision(2);
+	std::cout << std::left << std::setw(10) << "Vardas" 
+						   << std::setw(15) << "Pavardë" 
+						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
+	std::cout << "-------------------------------------------------------\n";
+	// Nustatomas tikslumas ir tik tada spausdinama
+	std::cout << std::fixed << std::setprecision(2);
 	for (auto& s : stud)
 		spausdinti_stud_duom(s);
 }
@@ -133,13 +146,17 @@ Studentas generuoti_rand_stud() {
 	std::string vardai[] = { "Lukas", "Petras", "Jonas", "Algis" };
 	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valanèiûnas" };
 
+	// Apskaiciuojami masyvu ilgiai
 	int vardai_ilgis = sizeof(vardai) / sizeof(std::string);
 	int pavard_ilgis = sizeof(pavard) / sizeof(std::string);
 
+	// rand() * vardai_ilgis duoda pseudo-atsitiktini indeksa
 	Studentas s;
 	s.vardas = vardai[rand() % vardai_ilgis];
 	s.pavarde = pavard[rand() % pavard_ilgis];
 
+	// rand() % MAX_RAND_PAZ duoda naturalu skaiciu [0, MAX_RAND_PAX)
+	// Taigi reikia prideti vieneta
 	int paz_skaicius = rand() % MAX_RAND_PAZ + 1;
 	for (paz_skaicius; paz_skaicius > 0; paz_skaicius--)
 		s.nd_pazymiai.push_back(rand() % 10 + 1);
@@ -150,7 +167,7 @@ Studentas generuoti_rand_stud() {
 }
 
 std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
-	// Atsitiktinio studentu rinkinio genervaimas
+	// Atsitiktinio studentu rinkinio genervaimas su vis kitokia "sekla", kad kas kart skirtusi rezultatas
 	srand(time(0));
 
 	std::vector<Studentas> stud;
@@ -166,17 +183,34 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 	std::vector<Studentas> stud;
 	std::ifstream fr(failas);
 
-	// Praleisti pirmaja eilute
-	std::string tmp_str;
-	std::getline(fr, tmp_str, '\n');
+	// Nuskaityti failo antraste(stulpelius)
+	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
+	std::string header_str;
+	std::getline(fr, header_str, '\n');
+	
+	int nd_skaicius = 0;
 
+	// Nuskaitomas namu darbu kiekis su regex
+	// Daroma prielaida, kad namu darbu stulpeliai zymimi ND(skaicius)
+	const std::regex reg_expr("ND\\d+");
+
+	auto iterator = std::sregex_iterator(header_str.begin(), header_str.end(), reg_expr);
+	auto empty = std::sregex_iterator();
+
+	nd_skaicius = std::distance(iterator, empty);
+
+	// Skaitomos eilutes, kol neprieis failo galo
 	while (!fr.eof()) {
 		Studentas s;
-		int nd_paz[5]{};
 
-		fr >> s.vardas >> s.pavarde >> nd_paz[0] >> nd_paz[1] >> nd_paz[2] 
-			>> nd_paz[3] >> nd_paz[4] >> s.egz_pazymys;
-		s.nd_pazymiai.assign(nd_paz, nd_paz + 5);
+		fr >> s.vardas >> s.pavarde;
+
+		int tmp_paz;
+		for (int i = 0; i < nd_skaicius; i++) {
+			fr >> tmp_paz;
+			s.nd_pazymiai.push_back(tmp_paz);
+		}
+		fr >> s.egz_pazymys;
 
 		stud.push_back(s);
 	}

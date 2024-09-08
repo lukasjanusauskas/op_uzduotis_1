@@ -30,15 +30,16 @@ float mediana(std::vector<int> pazymiai);
 float galutinis(float paz_agg, int egz_paz);
 
 int main() {
-	std::setlocale(LC_ALL, "Lithuanian");
+	std::setlocale(LC_ALL, "Lithuanian"); // Lietuviu lokalizavimas
 
-	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
+	std::vector<Studentas> stud = generuoti_atsitiktinius(25);
 	spausdinti_rezultatus(stud);
 
 	return 0;
 }
 
 Studentas irasyti_studenta() {
+	// Vieno studento irasimas
 	Studentas stud;
 
 	std::cout << "Árağyti varda ir pavarde(ivedus vardà paspausti Enter):\n";
@@ -62,6 +63,7 @@ Studentas irasyti_studenta() {
 }
 
 std::vector<Studentas> irasyti_studentus() {
+	// Visu studentu irasimas komandineje eiluteje
 	std::vector<Studentas> sarasas;
 	char testi{ 't' };
 
@@ -75,18 +77,19 @@ std::vector<Studentas> irasyti_studentus() {
 			sarasas.push_back(irasyti_studenta());
 			break;
 		case 'n':
-			goto break_loop;
+			return sarasas;
 		default:
 			break;
 		}
 	}
-break_loop: return sarasas;
 }
 
 float vidurkis(std::vector<int> pazymiai) {
 	int sum = 0;
 	for (int paz : pazymiai)
 		sum += paz;
+		
+	float ret = ((float)sum) / (pazymiai.size());
 
 	return ((float)sum) / (pazymiai.size());
 }
@@ -110,6 +113,7 @@ float galutinis(float paz_agg, int egz_paz) {
 }
 
 void spausdinti_stud_duom(Studentas stud) {
+	// Spausdinti vieno studento duomenis
 	float vid = vidurkis(stud.nd_pazymiai);
 	float med = mediana(stud.nd_pazymiai);
 
@@ -118,6 +122,7 @@ void spausdinti_stud_duom(Studentas stud) {
 }
 
 void spausdinti_rezultatus(std::vector<Studentas> stud) {
+	// Spausdinti visu studentu duomenis
 	std::cout << "Vardas\tPavardë\tGalutinis (vid.) / Galutinis(med.)\n";
 	std::cout << "-----------------------------------------------------\n";
 	std::cout << std::setprecision(2);
@@ -126,6 +131,7 @@ void spausdinti_rezultatus(std::vector<Studentas> stud) {
 }
 
 Studentas generuoti_rand_stud() {
+	// Atsitiktinis studento generatorius
 	std::string vardai[] = { "Lukas", "Petras", "Jonas", "Algis" };
 	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valanèiûnas" };
 
@@ -136,7 +142,7 @@ Studentas generuoti_rand_stud() {
 	s.vardas = vardai[rand() % vardai_ilgis];
 	s.pavarde = pavard[rand() % pavard_ilgis];
 
-	int paz_skaicius = rand() % MAX_RAND_PAZ;
+	int paz_skaicius = rand() % MAX_RAND_PAZ + 1;
 	for (paz_skaicius; paz_skaicius > 0; paz_skaicius--)
 		s.nd_pazymiai.push_back(rand() % 10 + 1);
 
@@ -146,6 +152,7 @@ Studentas generuoti_rand_stud() {
 }
 
 std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
+	// Atsitiktinio studentu rinkinio genervaimas
 	srand(time(0));
 
 	std::vector<Studentas> stud;
@@ -156,10 +163,12 @@ std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
 }
 
 std::vector<Studentas> nuskaityti_faila(std::string failas) {
+	// Studentu suvedimas is failo
+
 	std::vector<Studentas> stud;
 	std::ifstream fr(failas);
 
-	// Praleisti pirmà eilutæ
+	// Praleisti pirmaja eilute
 	std::string tmp_str;
 	std::getline(fr, tmp_str, '\n');
 

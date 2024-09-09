@@ -5,9 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="HeaderFiles">
-      <UniqueIdentifier>{b20ddb7b-8b2f-4b62-9ff4-582ae7262169}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -16,16 +13,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="kursiokai.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="studentas.h">
-      <Filter>HeaderFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="skaiciavimai.h">
-      <Filter>HeaderFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>HeaderFiles</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

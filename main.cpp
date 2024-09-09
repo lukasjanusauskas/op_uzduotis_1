@@ -8,11 +8,30 @@
 #include <random>
 #include <time.h>
 
-#include "studentas.h"
-#include "skaiciavimai.h"
-#include "util.h"
-
 #define MAX_RAND_PAZ 10
+
+struct Studentas {
+	std::string vardas;
+	std::string pavarde;
+	std::vector<int> nd_pazymiai;
+	int egz_pazymys{};
+};
+
+Studentas irasyti_studenta();
+std::vector<Studentas> irasyti_studentus();
+void spausdinti_stud_duom(Studentas stud);
+void spausdinti_rezultatus(std::vector<Studentas> stud);
+
+Studentas generuoti_rand_stud();
+std::vector<Studentas> generuoti_atsitiktinius(unsigned int n);
+std::vector<Studentas> nuskaityti_faila(std::string failas);
+
+float vidurkis(std::vector<int> pazymiai);
+float mediana(std::vector<int> pazymiai);
+float galutinis(float paz_agg, int egz_paz);
+
+bool palyginti_rikiavimui(Studentas pirmas, Studentas antras);
+void rikiuoti_studentus(std::vector<Studentas>& stud);
 
 int main() {
 	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");

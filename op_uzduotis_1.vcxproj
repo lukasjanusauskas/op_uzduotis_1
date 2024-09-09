@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="skaiciavimai.cpp" />
+    <ClCompile Include="studentas_io.cpp" />
+    <ClCompile Include="stud_random.cpp" />
+    <ClCompile Include="stud_rikiavimas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="kursiokai.txt" />

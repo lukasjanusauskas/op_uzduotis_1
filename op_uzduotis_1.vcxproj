@@ -132,6 +132,11 @@
   <ItemGroup>
     <Text Include="kursiokai.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util.h" />
+    <ClInclude Include="skaiciavimai.h" />
+    <ClInclude Include="studentas.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

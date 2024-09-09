@@ -6,7 +6,12 @@ float vidurkis(std::vector<int> pazymiai) {
 	for (int paz : pazymiai)
 		sum += paz;
 
-	return ((float)sum) / (pazymiai.size());
+	try {
+		return ((float)sum) / (pazymiai.size());
+	}
+	catch (const std::exception& e) {
+		return 0;
+	}
 }
 
 float mediana(std::vector<int> pazymiai) {

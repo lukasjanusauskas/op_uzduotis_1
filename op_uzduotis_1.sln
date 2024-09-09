@@ -7,12 +7,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "op_uzduotis_1", "op_uzduoti
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Custom|x64 = Custom|x64
+		Custom|x86 = Custom|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B3369CD-575E-48F1-844A-30703883C4D8}.Custom|x64.ActiveCfg = Debug|x64
+		{5B3369CD-575E-48F1-844A-30703883C4D8}.Custom|x64.Build.0 = Debug|x64
+		{5B3369CD-575E-48F1-844A-30703883C4D8}.Custom|x86.ActiveCfg = Custom|Win32
+		{5B3369CD-575E-48F1-844A-30703883C4D8}.Custom|x86.Build.0 = Custom|Win32
 		{5B3369CD-575E-48F1-844A-30703883C4D8}.Debug|x64.ActiveCfg = Debug|x64
 		{5B3369CD-575E-48F1-844A-30703883C4D8}.Debug|x64.Build.0 = Debug|x64
 		{5B3369CD-575E-48F1-844A-30703883C4D8}.Debug|x86.ActiveCfg = Debug|Win32

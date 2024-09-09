@@ -1,13 +1,3 @@
-#include <iostream>
-#include <regex>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <iomanip>
-#include <random>
-#include <time.h>
-
 #include "studentas.h"
 #include "skaiciavimai.h"
 #include "util.h"
@@ -17,9 +7,9 @@
 #include "stud_rikiavimas.cpp"
 
 int main() {
-	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
+	std::setlocale(LC_ALL, "Lithuanian");
+	std::vector<Studentas> stud = irasyti_studentus();
 
-	rikiuoti_studentus(stud);
 	spausdinti_rezultatus(stud);
 
 	return 0;

@@ -13,10 +13,21 @@ Studentas irasyti_studenta() {
 	std::cout << "Áraðyti varda ir pavarde(ivedus vardà paspausti Enter):\n";
 	std::cin >> stud.vardas >> stud.pavarde;
 
+	std::string ivestis;
 	int paz;
+
 	std::cout << "Ávesti paþymius(norëdami uþbaigti, áveskite 0):\n";
 	while (true) {
-		std::cin >> paz;
+		std::cin >> ivestis;
+		try
+		{
+			paz = std::stoi(ivestis);
+		}
+		catch (const std::exception&)
+		{
+			std::cout << "Prasau, iveskite normalu skaiciu, jei norite baigti, iveskite 0\n";
+			continue;
+		}
 
 		if (paz == 0) // Irasoma, kol nepaspaudzia 0
 			break;
@@ -25,7 +36,19 @@ Studentas irasyti_studenta() {
 	}
 
 	std::cout << "Áveskite egzamino paþymá:\n";
-	std::cin >> stud.egz_pazymys;
+
+ivesti:;
+	std::cin >> ivestis;
+
+	try
+	{
+		stud.egz_pazymys = std::stoi(ivestis);
+	}
+	catch (const std::exception&)
+	{
+		std::cout << "Prasau, iveskite normalu skaiciu, jei norite baigti, iveskite 0\n";
+		goto ivesti;
+	}
 
 	return stud;
 }

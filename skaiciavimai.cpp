@@ -2,14 +2,16 @@
 #include <algorithm>
 
 float vidurkis(std::vector<int> pazymiai) {
-	if (pazymiai.size() == 0)
-		return 0.0;
-
 	int sum = 0;
 	for (int paz : pazymiai)
 		sum += paz;
 
-	return ((float)sum) / (pazymiai.size());
+	try {
+		return ((float)sum) / (pazymiai.size());
+	}
+	catch (const std::exception& e) {
+		return 0;
+	}
 }
 
 float mediana(std::vector<int> pazymiai) {

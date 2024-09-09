@@ -30,13 +30,10 @@ float vidurkis(std::vector<int> pazymiai);
 float mediana(std::vector<int> pazymiai);
 float galutinis(float paz_agg, int egz_paz);
 
-bool palyginti_rikiavimui(Studentas pirmas, Studentas antras);
-void rikiuoti_studentus(std::vector<Studentas>& stud);
-
 int main() {
-	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
+	std::setlocale(LC_ALL, "Lithuanian"); // Lietuviu lokalizavimas
 
-	rikiuoti_studentus(stud);
+	std::vector<Studentas> stud = nuskaityti_faila("kursiokai.txt");
 	spausdinti_rezultatus(stud);
 
 	return 0;
@@ -219,22 +216,4 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 	}
 
 	return stud;
-}
-
-bool palyginti_rikiavimui(Studentas pirmas, Studentas antras) {
-	// Eilutems lyginti naudojame compare metoda
-	int cmp = pirmas.vardas.compare(antras.vardas);
-
-	// Jei lygios eilutes, lyginam pavardes
-	if (cmp == 0)
-		return pirmas.pavarde.compare(antras.pavarde) < 0;
-
-	// Jei nelygios, grazinam rezultata
-	else
-		return cmp < 0;
-}
-
-void rikiuoti_studentus(std::vector<Studentas>& stud) {
-	// Rikiavimas su custom metodu
-	std::sort(stud.begin(), stud.end(), &palyginti_rikiavimui);
 }

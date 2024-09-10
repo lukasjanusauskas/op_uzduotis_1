@@ -8,7 +8,7 @@
 
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
-	std::vector<Studentas> stud = irasyti_studentus();
+	std::vector<Studentas> stud = nuskaityti_faila("studentai10000.txt");
 
 	spausdinti_rezultatus(stud);
 

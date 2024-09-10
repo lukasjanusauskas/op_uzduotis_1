@@ -10,13 +10,13 @@ Studentas irasyti_studenta() {
 	// Vieno studento irasymas
 	Studentas stud;
 
-	std::cout << "Árağyti varda ir pavarde(ivedus vardà paspausti Enter):\n";
+	std::cout << "ï¿½raï¿½yti varda ir pavarde(ivedus vardï¿½ paspausti Enter):\n";
 	std::cin >> stud.vardas >> stud.pavarde;
 
 	std::string ivestis;
 	int paz;
 
-	std::cout << "Ávesti paşymius(norëdami uşbaigti, áveskite 0):\n";
+	std::cout << "ï¿½vesti paï¿½ymius(norï¿½dami uï¿½baigti, ï¿½veskite 0):\n";
 	while (true) {
 		std::cin >> ivestis;
 		try
@@ -35,7 +35,7 @@ Studentas irasyti_studenta() {
 		stud.nd_pazymiai.push_back(paz);
 	}
 
-	std::cout << "Áveskite egzamino paşymá:\n";
+	std::cout << "ï¿½veskite egzamino paï¿½ymï¿½:\n";
 
 ivesti:;
 	std::cin >> ivestis;
@@ -59,7 +59,7 @@ std::vector<Studentas> irasyti_studentus() {
 	char testi{ 't' };
 
 	while (true) {
-		std::cout << "Árağyti studentà? (t/n)\n";
+		std::cout << "ï¿½raï¿½yti studentï¿½? (t/n)\n";
 		std::cin >> testi;
 
 		switch (testi)
@@ -94,7 +94,7 @@ void spausdinti_stud_duom(Studentas stud) {
 void spausdinti_rezultatus(std::vector<Studentas> stud) {
 	// Spausdinti visu studentu duomenis
 	std::cout << std::left << std::setw(10) << "Vardas" 
-						   << std::setw(15) << "Pavardë" 
+						   << std::setw(15) << "Pavardï¿½" 
 						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
 	std::cout << "-------------------------------------------------------\n";
 	// Nustatomas tikslumas ir tik tada spausdinama
@@ -113,6 +113,7 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
 	std::string header_str;
 	std::getline(fr, header_str, '\n');
+
 	
 	int nd_skaicius = 0;
 

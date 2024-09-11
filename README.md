@@ -1,8 +1,7 @@
-# op_uzduotis_1
+# Objektinio programavimo (IND studijos)  1 užduotis
 
-## Padaryta:
-- Struktūra `Studentas`
-- Rezultatų išvedimas
-- Vidurkio ir medianos skaičiavimas
-- Atsitiktinis generavimas
-- Įvedimas iš failo
+## Studentų duomenų bazė:
+- Duomenys saugomi struktūroje `Studentas`
+- Galutinis pažymys skaičiuojamas pagal formulę: *0.4 * namų darbų pažymys + 0.6 * egzamino pažymys*.
+- Galima studentus nuskaityti iš konsolės, iš failo ar sugeneruoti atsitiktinai.
+- Išvedus studentai yra išrikiuoti.

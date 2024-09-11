@@ -10,13 +10,13 @@ Studentas irasyti_studenta() {
 	// Vieno studento irasymas
 	Studentas stud;
 
-	std::cout << "�ra�yti varda ir pavarde(ivedus vard� paspausti Enter):\n";
+	std::cout << "Įrašyti varda ir pavarde(ivedus vardą paspausti Enter):\n";
 	std::cin >> stud.vardas >> stud.pavarde;
 
 	std::string ivestis;
 	int paz;
 
-	std::cout << "�vesti pa�ymius(nor�dami u�baigti, �veskite 0):\n";
+	std::cout << "Įvesti pažymius(norėdami užbaigti, įveskite 0):\n";
 	while (true) {
 		std::cin >> ivestis;
 		try
@@ -35,7 +35,7 @@ Studentas irasyti_studenta() {
 		stud.nd_pazymiai.push_back(paz);
 	}
 
-	std::cout << "�veskite egzamino pa�ym�:\n";
+	std::cout << "Įveskite egzamino pažymį:\n";
 
 ivesti:;
 	std::cin >> ivestis;
@@ -84,7 +84,7 @@ void spausdinti_stud_duom(Studentas stud) {
 	float med = mediana(stud.nd_pazymiai);
 
 	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
-	std::cout << std::setw(10) << stud.vardas
+	std::cout << std::setw(14) << stud.vardas
 			  << std::setw(15) << stud.pavarde;
 	std::cout << std::left
 			  << std::setw(17) << galutinis(vid, stud.egz_pazymys) 
@@ -93,8 +93,8 @@ void spausdinti_stud_duom(Studentas stud) {
 
 void spausdinti_rezultatus(std::vector<Studentas> stud) {
 	// Spausdinti visu studentu duomenis
-	std::cout << std::left << std::setw(10) << "Vardas" 
-						   << std::setw(15) << "Pavard�" 
+	std::cout << std::left << std::setw(14) << "Vardas" 
+						   << std::setw(15) << "Pavardė" 
 						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
 	std::cout << "-------------------------------------------------------\n";
 	// Nustatomas tikslumas ir tik tada spausdinama
@@ -109,6 +109,11 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 	std::vector<Studentas> stud;
 	std::ifstream fr(failas);
 
+	if(fr.fail()){
+		std::cout << "Nėra failo\n";
+		return std::vector<Studentas>();
+	}
+
 	// Nuskaityti failo antraste(stulpelius)
 	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
 	std::string header_str;
@@ -119,11 +124,14 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 
 	// Nuskaitomas namu darbu kiekis su regex
 	// Daroma prielaida, kad namu darbu stulpeliai zymimi ND(skaicius)
+
+	// Sudarome regex expression ir jį paleidžiame per header_str.
 	const std::regex reg_expr("ND\\d+");
 
 	auto iterator = std::sregex_iterator(header_str.begin(), header_str.end(), reg_expr);
 	auto empty = std::sregex_iterator();
 
+	// Apskaičiuojame, kiek žodžių atitinka regex expression
 	nd_skaicius = std::distance(iterator, empty);
 
 	// Skaitomos eilutes, kol neprieis failo galo

@@ -9,6 +9,7 @@ struct Studentas {
 	std::string pavarde;
 	std::vector<int> nd_pazymiai;
 	int egz_pazymys{};
+	float galutinis;
 };
 
 Studentas irasyti_studenta();

@@ -10,4 +10,6 @@ std::vector<Studentas> nuskaityti_faila(std::string failas);
 bool palyginti_rikiavimui(Studentas pirmas, Studentas antras);
 void rikiuoti_studentus(std::vector<Studentas>& stud);
 
+void kategorizuoti(std::vector<Studentas> stud);
+
 #endif

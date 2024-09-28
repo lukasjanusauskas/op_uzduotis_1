@@ -20,23 +20,8 @@ int main() {
 void testas(){
 	auto start = std::chrono::system_clock::now();
 
-	std::vector<Studentas> stud = nuskaityti_faila_greitas("studentai10000.txt");
-
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed = end - start;
-
-	std::cout << elapsed.count() << std::endl;
-
-
-	start = std::chrono::system_clock::now();
-
-	stud = nuskaityti_faila_greitas("studentai10000.txt");
-
-	end = std::chrono::system_clock::now();
-	elapsed = end - start;
-
-	std::cout << elapsed.count() << std::endl;
-	isvesti_faila(stud, "stud100000.txt");
 }
 
 void main01(){

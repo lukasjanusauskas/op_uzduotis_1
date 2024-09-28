@@ -4,10 +4,10 @@
 
 #define MAX_RAND_PAZ 10
 
-Studentas generuoti_rand_stud() {
+Studentas generuoti_rand_stud(int n_tasis, int paz_skaicius) {
 	// Atsitiktinis studento generatorius
 	std::string vardai[] = { "Lukas", "Petras", "Jonas", "Algis" };
-	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valan�i�nas" };
+	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valančiūnas" };
 
 	// Apskaiciuojami masyvu ilgiai
 	int vardai_ilgis = sizeof(vardai) / sizeof(std::string);
@@ -15,12 +15,11 @@ Studentas generuoti_rand_stud() {
 
 	// rand() * vardai_ilgis duoda pseudo-atsitiktini indeksa
 	Studentas s;
-	s.vardas = vardai[rand() % vardai_ilgis];
-	s.pavarde = pavard[rand() % pavard_ilgis];
+	s.vardas = vardai[rand() % vardai_ilgis] + std::to_string(n_tasis);
+	s.pavarde = pavard[rand() % pavard_ilgis] + std::to_string(n_tasis);
 
 	// rand() % MAX_RAND_PAZ duoda naturalu skaiciu [0, MAX_RAND_PAX)
 	// Taigi reikia prideti vieneta
-	int paz_skaicius = rand() % MAX_RAND_PAZ + 1;
 	for (paz_skaicius; paz_skaicius > 0; paz_skaicius--)
 		s.nd_pazymiai.push_back(rand() % 10 + 1);
 
@@ -34,8 +33,29 @@ std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
 	srand(time(0));
 
 	std::vector<Studentas> stud;
+	int paz_skaicius = rand() % MAX_RAND_PAZ + 1;
+
 	for (int i = 0; i < n; i++)
-		stud.push_back(generuoti_rand_stud());
+		stud.push_back(generuoti_rand_stud(i, paz_skaicius));
 
 	return stud;
+}
+
+void generuoti_penkis() {
+	std::vector<Studentas> stud;
+
+	stud = generuoti_atsitiktinius(1000);
+	isvesti_faila(stud, "studentai1000.txt");
+
+	stud = generuoti_atsitiktinius(10000);
+	isvesti_faila(stud, "studentai10000.txt");
+
+	stud = generuoti_atsitiktinius(100000);
+	isvesti_faila(stud, "studentai100000.txt");
+
+	stud = generuoti_atsitiktinius(1000000);
+	isvesti_faila(stud, "studentai1000000.txt");
+
+	stud = generuoti_atsitiktinius(10000000);
+	isvesti_faila(stud, "studentai10000000.txt");
 }

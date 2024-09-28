@@ -12,32 +12,8 @@ void testas();
 
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
+	// generuoti_penkis();
 
-	testas();
-
-	char input;
-	std::vector<Studentas> stud;
-
-//  input_option:
-
-// 	std::cout << "Kaip įvesti studentus? Terminale - (t), Faile - (f)\n";
-// 	std::cin >> input;
-
-	// switch (input)
-	// {
-	// case 't':
-	// 	stud = irasyti_studentus();
-	// 	break;
-
-	// case 'f':
-	// 	stud = nuskaityti_faila("studentai10000.txt");
-	// 	break;
-	
-	// default:
-	//  	goto input_option;
-	// }
-
-	// isvesti_faila(stud, "rezultatas.txt");
 	return 0;
 }
 
@@ -61,4 +37,30 @@ void testas(){
 
 	std::cout << elapsed.count() << std::endl;
 	isvesti_faila(stud, "stud100000.txt");
+}
+
+void main01(){
+	char input;
+	std::vector<Studentas> stud;
+
+input_option:
+
+	std::cout << "Kaip įvesti studentus? Terminale - (t), Faile - (f)\n";
+	std::cin >> input;
+
+	switch (input)
+	{
+	case 't':
+		stud = irasyti_studentus();
+		break;
+
+	case 'f':
+		stud = nuskaityti_faila("studentai10000.txt");
+		break;
+	
+	default:
+	 	goto input_option;
+	}
+
+	isvesti_faila(stud, "rezultatas.txt");
 }

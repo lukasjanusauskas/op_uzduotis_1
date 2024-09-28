@@ -222,9 +222,9 @@ void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
 		float med = mediana(s.nd_pazymiai);
 
 	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
-		std::cout << std::setw(14) << s.vardas
+		fr << std::setw(14) << s.vardas
 			  	  << std::setw(15) << s.pavarde;
-		std::cout << std::left
+		fr << std::left
 			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
 			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
 	}

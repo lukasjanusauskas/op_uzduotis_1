@@ -7,7 +7,7 @@
 Studentas generuoti_rand_stud() {
 	// Atsitiktinis studento generatorius
 	std::string vardai[] = { "Lukas", "Petras", "Jonas", "Algis" };
-	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valanèiûnas" };
+	std::string pavard[] = { "Petraitis", "Jonaitis", "Kazlauskas", "Valanï¿½iï¿½nas" };
 
 	// Apskaiciuojami masyvu ilgiai
 	int vardai_ilgis = sizeof(vardai) / sizeof(std::string);

@@ -152,3 +152,81 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 
 	return stud;
 }
+
+std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
+	// Studentu suvedimas is failo
+
+	std::vector<Studentas> stud;
+	std::ifstream fr(failas);
+
+	if(fr.fail()){
+		std::cout << "Nėra failo\n";
+		return std::vector<Studentas>();
+	}
+
+	// Nuskaityti failo antraste(stulpelius)
+	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
+	std::string header_str;
+	std::getline(fr, header_str, '\n');
+
+	
+	int nd_skaicius = 0;
+
+	// Nuskaitomas namu darbu kiekis su regex
+	// Daroma prielaida, kad namu darbu stulpeliai zymimi ND(skaicius)
+
+	// Sudarome regex expression ir jį paleidžiame per header_str.
+	const std::regex reg_expr("ND\\d+");
+
+	auto iterator = std::sregex_iterator(header_str.begin(), header_str.end(), reg_expr);
+	auto empty = std::sregex_iterator();
+
+	// Apskaičiuojame, kiek žodžių atitinka regex expression
+	nd_skaicius = std::distance(iterator, empty);
+
+	// Skaitomos eilutes, kol neprieis failo galo
+	std::stringstream buffer;
+	buffer << fr.rdbuf();
+	fr.close();
+
+	int tmp_paz;
+	while (buffer) {
+		Studentas s;
+
+		buffer >> s.vardas >> s.pavarde;
+
+		for (int i = 0; i < nd_skaicius; i++) {
+			buffer >> tmp_paz;
+			s.nd_pazymiai.push_back(tmp_paz);
+		}
+		buffer >> s.egz_pazymys;
+
+		stud.push_back(s);
+	}
+
+	return stud;
+}
+
+void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
+	std::ofstream fr(file_path);
+	// Spausdinti visu studentu duomenis
+	fr << std::left << std::setw(14) << "Vardas" 
+						   << std::setw(15) << "Pavardė" 
+						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
+	fr << "-------------------------------------------------------\n";
+	// Nustatomas tikslumas ir tik tada spausdinama
+	fr << std::fixed << std::setprecision(2);
+	for (auto& s : stud){
+		
+		float vid = vidurkis(s.nd_pazymiai);
+		float med = mediana(s.nd_pazymiai);
+
+	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
+		std::cout << std::setw(14) << s.vardas
+			  	  << std::setw(15) << s.pavarde;
+		std::cout << std::left
+			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
+			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
+	}
+	fr.close();
+}

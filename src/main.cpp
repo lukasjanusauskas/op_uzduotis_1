@@ -5,6 +5,7 @@
 #include "studentas_io.cpp"
 #include "stud_random.cpp"
 #include "stud_rikiavimas.cpp"
+
 #include <chrono>
 
 void testas();
@@ -14,7 +15,14 @@ int main() {
 	// Generavimui:
 	// generuoti_penkis();
 
-	
+	std::vector<Studentas> stud = nuskaityti_faila_greitas("studentai1000.txt");
+	std::vector<Studentas> vargsai, galvos;
+
+	kategorizuoti(stud, vargsai, galvos);
+	std::cout << "Baigta kategorizuot\n";
+
+	isvesti_faila_greitas(vargsai, "vargsai.txt");
+	isvesti_faila_greitas(galvos, "galvos.txt");
 
 	return 0;
 }

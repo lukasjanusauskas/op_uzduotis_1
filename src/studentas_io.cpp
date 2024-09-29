@@ -118,7 +118,6 @@ std::vector<Studentas> nuskaityti_faila(std::string failas) {
 	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
 	std::string header_str;
 	std::getline(fr, header_str, '\n');
-
 	
 	int nd_skaicius = 0;
 
@@ -190,16 +189,18 @@ std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
 	fr.close();
 
 	int tmp_paz;
-	while (buffer) {
+	std::string line_buf;
+	while (std::getline(buffer, line_buf, '\n')) {
 		Studentas s;
+		std::stringstream line_stream;
 
-		buffer >> s.vardas >> s.pavarde;
+		line_stream >> s.vardas >> s.pavarde;
 
 		for (int i = 0; i < nd_skaicius; i++) {
-			buffer >> tmp_paz;
+			line_stream >> tmp_paz;
 			s.nd_pazymiai.push_back(tmp_paz);
 		}
-		buffer >> s.egz_pazymys;
+		line_stream >> s.egz_pazymys;
 
 		stud.push_back(s);
 	}
@@ -229,4 +230,30 @@ void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
 			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
 	}
 	fr.close();
+}
+
+void isvesti_faila_greitas(std::vector<Studentas> stud, std::string file_path){
+	std::stringstream buffer;
+	// Spausdinti visu studentu duomenis
+	buffer << std::left << std::setw(20) << "Vardas" 
+						   << std::setw(25) << "Pavardė" 
+						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
+	buffer << "---------------------------------------------------------------\n";
+	// Nustatomas tikslumas ir tik tada spausdinama
+	buffer << std::fixed << std::setprecision(2);
+	for (auto& s : stud){
+		
+		float vid = vidurkis(s.nd_pazymiai);
+		float med = mediana(s.nd_pazymiai);
+
+	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
+		buffer << std::setw(20) << s.vardas
+			  	  << std::setw(25) << s.pavarde;
+		buffer << std::left
+			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
+			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
+	}
+
+	std::ofstream fw(file_path);
+	fw << buffer.rdbuf();
 }

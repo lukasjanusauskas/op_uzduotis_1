@@ -1,4 +1,6 @@
 #include <random>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "studentas.h"
 
@@ -28,34 +30,39 @@ Studentas generuoti_rand_stud(int n_tasis, int paz_skaicius) {
 	return s;
 }
 
-std::vector<Studentas> generuoti_atsitiktinius(unsigned int n) {
+void generuoti_atsitiktinius(std::string file, unsigned int n) {
 	// Atsitiktinio studentu rinkinio genervaimas su vis kitokia "sekla", kad kas kart skirtusi rezultatas
 	srand(time(0));
 
-	std::vector<Studentas> stud;
-	int paz_skaicius = rand() % MAX_RAND_PAZ + 1;
+	Studentas stud;
+	int paz_skaicius = rand() % MAX_RAND_PAZ + 3; // Minimum trys namu darbai
 
-	for (int i = 0; i < n; i++)
-		stud.push_back(generuoti_rand_stud(i, paz_skaicius));
+	std::ofstream fr(file);
+	fr << std::left << std::setw(20) << "Vardas"
+					<< std::setw(20) << "Pavardė";
 
-	return stud;
+	for (int i = 0; i < paz_skaicius; i++)
+		fr << std::setw(6) << "ND" + std::to_string(i+1);
+	fr << "Egz.\n--------------------------------------------------\n";
+
+	for (int i = 0; i < n; i++){
+		stud = generuoti_rand_stud(i, paz_skaicius);	
+		fr << std::setw(20) << stud.vardas 
+		   << std::setw(20) << stud.pavarde;
+
+		for(auto& p: stud.nd_pazymiai)
+			fr << std::setw(6) << p;
+
+		fr << stud.egz_pazymys << "\n";
+	}
 }
 
 void generuoti_penkis() {
 	std::vector<Studentas> stud;
 
-	stud = generuoti_atsitiktinius(1000);
-	isvesti_faila(stud, "studentai1000.txt");
-
-	stud = generuoti_atsitiktinius(10000);
-	isvesti_faila(stud, "studentai10000.txt");
-
-	stud = generuoti_atsitiktinius(100000);
-	isvesti_faila(stud, "studentai100000.txt");
-
-	stud = generuoti_atsitiktinius(1000000);
-	isvesti_faila(stud, "studentai1000000.txt");
-
-	stud = generuoti_atsitiktinius(10000000);
-	isvesti_faila(stud, "studentai10000000.txt");
+	generuoti_atsitiktinius("studentai1000.txt", 1000);
+	generuoti_atsitiktinius("studentai10000.txt", 10000);
+	generuoti_atsitiktinius("studentai100000.txt", 100000);
+	generuoti_atsitiktinius("studentai1000000.txt", 1000000);
+	generuoti_atsitiktinius("studentai10000000.txt", 10000000);
 }

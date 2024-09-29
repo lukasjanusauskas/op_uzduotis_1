@@ -5,14 +5,16 @@
 #include "studentas_io.cpp"
 #include "stud_random.cpp"
 #include "stud_rikiavimas.cpp"
-
 #include <chrono>
 
 void testas();
 
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
+	// Generavimui:
 	// generuoti_penkis();
+
+	
 
 	return 0;
 }

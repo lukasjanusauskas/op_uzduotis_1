@@ -210,10 +210,10 @@ std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
 void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
 	std::ofstream fr(file_path);
 	// Spausdinti visu studentu duomenis
-	fr << std::left << std::setw(14) << "Vardas" 
-						   << std::setw(15) << "Pavardė" 
+	fr << std::left << std::setw(20) << "Vardas" 
+						   << std::setw(25) << "Pavardė" 
 						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
-	fr << "-------------------------------------------------------\n";
+	fr << "---------------------------------------------------------------\n";
 	// Nustatomas tikslumas ir tik tada spausdinama
 	fr << std::fixed << std::setprecision(2);
 	for (auto& s : stud){
@@ -222,8 +222,8 @@ void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
 		float med = mediana(s.nd_pazymiai);
 
 	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
-		fr << std::setw(14) << s.vardas
-			  	  << std::setw(15) << s.pavarde;
+		fr << std::setw(20) << s.vardas
+			  	  << std::setw(25) << s.pavarde;
 		fr << std::left
 			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
 			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;

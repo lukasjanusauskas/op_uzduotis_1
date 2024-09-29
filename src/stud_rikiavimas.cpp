@@ -18,3 +18,20 @@ void rikiuoti_studentus(std::vector<Studentas>& stud) {
 	// Rikiavimas su custom metodu
 	std::sort(stud.begin(), stud.end(), &palyginti_rikiavimui);
 }
+
+void kategorizuoti(std::vector<Studentas> stud){
+    std::vector<Studentas> vargsai;
+    std::vector<Studentas> galvos;
+
+    for(auto& s: stud){
+        float med = mediana(s.nd_pazymiai);
+		std::cout << s.vardas << std::endl;
+
+        if(galutinis(med, s.egz_pazymys) >= 5.0)
+            vargsai.push_back(s);
+        else
+            galvos.push_back(s);
+    }
+
+    stud.clear();
+}

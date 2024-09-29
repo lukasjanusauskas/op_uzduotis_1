@@ -167,7 +167,6 @@ std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
 	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
 	std::string header_str;
 	std::getline(fr, header_str, '\n');
-
 	
 	int nd_skaicius = 0;
 
@@ -190,17 +189,15 @@ std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
 
 	int tmp_paz;
 	std::string line_buf;
-	while (std::getline(buffer, line_buf, '\n')) {
+	while (!buffer.eof()) {
 		Studentas s;
-		std::stringstream line_stream;
-
-		line_stream >> s.vardas >> s.pavarde;
+		buffer >> s.vardas >> s.pavarde;
 
 		for (int i = 0; i < nd_skaicius; i++) {
-			line_stream >> tmp_paz;
+			buffer >> tmp_paz;
 			s.nd_pazymiai.push_back(tmp_paz);
 		}
-		line_stream >> s.egz_pazymys;
+		buffer >> s.egz_pazymys;
 
 		stud.push_back(s);
 	}

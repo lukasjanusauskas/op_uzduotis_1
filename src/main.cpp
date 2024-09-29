@@ -8,33 +8,52 @@
 
 #include <chrono>
 
-void testas();
+void testas(std::string file_path);
 
 int main() {
 	std::setlocale(LC_ALL, "Lithuanian");
 	// Generavimui:
 	// generuoti_penkis();
-
-	std::vector<Studentas> stud = nuskaityti_faila_greitas("studentai1000.txt");
-	std::vector<Studentas> vargsai, galvos;
-
-	kategorizuoti(stud, vargsai, galvos);
-	std::cout << "Baigta kategorizuot\n";
-
-	isvesti_faila_greitas(vargsai, "vargsai.txt");
-	isvesti_faila_greitas(galvos, "galvos.txt");
+	testas("studentai10000000.txt");
 
 	return 0;
 }
 
-void testas(){
+void testas(std::string file_path){
+	// Ivedimas
 	auto start = std::chrono::system_clock::now();
+
+	std::vector<Studentas> stud = nuskaityti_faila_greitas(file_path);
+	std::vector<Studentas> vargsai, galvos;
 
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed = end - start;
+
+	std::cout << "Nuskaitymas failo " << file_path << " užtruko " << elapsed.count() << "s\n";
+
+	// Kategorizavimas
+	start = std::chrono::system_clock::now();
+
+	kategorizuoti(stud, vargsai, galvos);
+
+	end = std::chrono::system_clock::now();
+	elapsed = end - start;
+
+	std::cout << "Kategorizavimas studentų iš failo " << file_path << " užtruko " << elapsed.count() << "s\n";
+
+	// Isvedimas
+	start = std::chrono::system_clock::now();
+
+	isvesti_faila_greitas(vargsai, "vargsai.txt");
+	isvesti_faila_greitas(galvos, "galvos.txt");
+
+	end = std::chrono::system_clock::now();
+	elapsed = end - start;
+
+	std::cout << "Kateogrizuotų studentų iš " << file_path << " išvedimas užtruko " << elapsed.count() << "s\n";
 }
 
-void main01(){
+void konsoles_dialogas(){
 	char input;
 	std::vector<Studentas> stud;
 

@@ -35,7 +35,7 @@ void generuoti_atsitiktinius(std::string file, unsigned int n) {
 
 	for (int i = 0; i < paz_skaicius; i++)
 		fr << std::setw(6) << "ND" + std::to_string(i+1);
-	fr << "Egz.";
+	fr << "Egz.\n";
 
 	for (int i = 0; i < n; i++){
 		stud = generuoti_rand_stud(i, paz_skaicius);	

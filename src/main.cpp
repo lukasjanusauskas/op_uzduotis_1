@@ -16,7 +16,6 @@ int main() {
 	// Generavimui:
 	// generuoti_penkis();
 	testas("studentai1000.txt");
-	std::cout << std::endl;
 	testas("studentai10000.txt");
 	testas("studentai100000.txt");
 	testas("studentai1000000.txt");

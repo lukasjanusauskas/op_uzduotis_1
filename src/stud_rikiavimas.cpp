@@ -1,22 +1,12 @@
 #include <algorithm>
 #include "studentas.h"
 
-bool palyginti_rikiavimui(Studentas pirmas, Studentas antras) {
-	// Eilutems lyginti naudojame compare metoda
-	int cmp = pirmas.vardas.compare(antras.vardas);
+bool pagal_varda(Studentas pirmas, Studentas antras) { return pirmas.vardas.compare(antras.vardas) < 0; }
+bool pagal_pavarde(Studentas pirmas, Studentas antras) { return pirmas.pavarde.compare(antras.vardas) < 0; }
 
-	// Jei lygios eilutes, lyginam pavardes
-	if (cmp == 0)
-		return pirmas.pavarde.compare(antras.pavarde) < 0;
-
-	// Jei nelygios, grazinam rezultata
-	else
-		return cmp < 0;
-}
-
-void rikiuoti_studentus(std::vector<Studentas>& stud) {
+void rikiuoti_studentus(std::vector<Studentas>& stud, std::function<bool(Studentas const&, Studentas const&)> func) {
 	// Rikiavimas su custom metodu
-	std::sort(stud.begin(), stud.end(), &palyginti_rikiavimui);
+	std::sort(stud.begin(), stud.end(), func);
 }
 
 void kategorizuoti(std::vector<Studentas> stud){

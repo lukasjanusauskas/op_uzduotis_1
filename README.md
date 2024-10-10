@@ -7,35 +7,41 @@
 - Išvedus studentai yra išrikiuoti.
 
 ## Spartos testavimo rezultatai:
+Detalūs: https://vult-my.sharepoint.com/:x:/r/personal/lukas_janusauskas_mif_stud_vu_lt/Documents/spartos%20rezultatai.xlsx?d=w5ff4c173031b4c0a9e1a1aebb7b78ed8&csf=1&web=1&e=C2TGJa
 
 #### 1000
-Nuskaitymas failo studentai1000.txt užtruko 0.00300454s
-Rikiavimas studentų iš failo studentai1000.txt užtruko 0.00215724s
-Kategorizavimas studentų iš failo studentai1000.txt užtruko 0.00207532s
-Kateogrizuotų studentų iš studentai1000.txt išvedimas užtruko 0.0201587s
+Genreravimas 0.00296973
+Nuskaitymas 0.002794428
+Rikiavimas 0.001796326
+Kategorizavimas 0.001775548
+Kateogrizuotų 0.013606956
 
 #### 10000
-Nuskaitymas failo studentai10000.txt užtruko 0.0238683s
-Rikiavimas studentų iš failo studentai10000.txt užtruko 0.0211192s
-Kategorizavimas studentų iš failo studentai10000.txt užtruko 0.0171938s
-Kateogrizuotų studentų iš studentai10000.txt išvedimas užtruko 0.0261626s
+Genreravimas 0.0265108
+Nuskaitymas 0.02618926
+Rikiavimas 0.0214071
+Kategorizavimas 0.01609842
+Kateogrizuotų 0.02373888
 
 #### 100000
-Nuskaitymas failo studentai100000.txt užtruko 0.205471s
-Rikiavimas studentų iš failo studentai100000.txt užtruko 0.291995s
-Kategorizavimas studentų iš failo studentai100000.txt užtruko 0.168984s
-Kateogrizuotų studentų iš studentai100000.txt išvedimas užtruko 0.240418s
+Genreravimas 0.2475758
+Nuskaitymas 0.23109
+Rikiavimas 0.2510222
+Kategorizavimas 0.1594558
+Kateogrizuotų 0.2249592
 
 #### 1000000
-Nuskaitymas failo studentai1000000.txt užtruko 1.20006s
-Rikiavimas studentų iš failo studentai1000000.txt užtruko 3.27296s
-Kategorizavimas studentų iš failo studentai1000000.txt užtruko 1.22868s
-Kateogrizuotų studentų iš studentai1000000.txt išvedimas užtruko 1.60905s
+Genreravimas 2.356948
+Nuskaitymas 1.230158
+Rikiavimas 3.09885
+Kategorizavimas 1.093374
+Kateogrizuotų 1.733554
 
 #### 10000000
-Nuskaitymas failo studentai10000000.txt užtruko 15.6578s
-Rikiavimas studentų iš failo studentai10000000.txt užtruko 36.3747s
-Kategorizavimas studentų iš failo studentai10000000.txt užtruko 11.8268s
-Kateogrizuotų studentų iš studentai10000000.txt išvedimas užtruko 16.6945s
+Genreravimas 20.1852
+Nuskaitymas 16.02384
+Rikiavimas 36.55344
+Kategorizavimas 12.102
+Kateogrizuotų 17.32354
 
 > Kompiuteris: intecl Core i7-4800MQ (max freq. 3.7 GHz), 16 Gb ram

@@ -10,18 +10,30 @@
 
 void testas(std::string file_path);
 void pasirinkti_rikiavima(std::vector<Studentas>& stud);
+void konsoles_dialogas();
+void testuoti_eiga();
+void testuoti_generavima();
 
 int main() {
-	std::setlocale(LC_ALL, "Lithuanian");
-	// Generavimui:
 	// generuoti_penkis();
+	// testuoti_eiga();
+	konsoles_dialogas();
+
+	return 0;
+}
+
+void testuoti_generavima(){
+	for(int i = 0; i < 5; i++){
+		generuoti_penkis();
+	}
+}
+
+void testuoti_eiga(){
 	testas("studentai1000.txt");
 	testas("studentai10000.txt");
 	testas("studentai100000.txt");
 	testas("studentai1000000.txt");
 	testas("studentai10000000.txt");
-
-	return 0;
 }
 
 void testas(std::string file_path){
@@ -108,7 +120,6 @@ void pasirinkti_rikiavima(std::vector<Studentas>& stud){
 	std::cout << "Rikiuoti pagal: (v)ardus ar (p)avardes?\n";
 	std::cin >> input;
 
-	start = std::chrono::system_clock::now();
 	switch (input)
 	{
 	case 'v':
@@ -125,7 +136,4 @@ void pasirinkti_rikiavima(std::vector<Studentas>& stud){
 	default:
 	 	goto sort_option;
 	}
-
-	end = std::chrono::system_clock::now();
-	elapsed = end - start;
 }

@@ -55,33 +55,26 @@ void generuoti_atsitiktinius(std::string file, unsigned int n) {
 }
 
 void generuoti_penkis() {
-	auto start = std::chrono::system_clock::now();
+	Timer t;
+	// Ivedimas
+	t.start_timer();
 	generuoti_atsitiktinius("studentai1000.txt", 1000);
-	auto end = std::chrono::system_clock::now();
-	std::chrono::duration<double> elapsed = end - start;
-	std::cout << "Generavimas užtruko" << elapsed.count() << "\n";
+	std::cout << "1000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	start = std::chrono::system_clock::now();
+	t.start_timer();
 	generuoti_atsitiktinius("studentai10000.txt", 10000);
-	end = std::chrono::system_clock::now();
- 	elapsed = end - start;
-	std::cout << "Generavimas užtruko" << elapsed.count() << "\n";
+	std::cout << "10000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	start = std::chrono::system_clock::now();
+	t.start_timer();
 	generuoti_atsitiktinius("studentai100000.txt", 100000);
-	end = std::chrono::system_clock::now();
- 	elapsed = end - start;
-	std::cout << "Generavimas užtruko" << elapsed.count() << "\n";
+	std::cout << "100000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	start = std::chrono::system_clock::now();
+	t.start_timer();
 	generuoti_atsitiktinius("studentai1000000.txt", 1000000);
-	end = std::chrono::system_clock::now();
- 	elapsed = end - start;
-	std::cout << "Generavimas užtruko" << elapsed.count() << "\n";
+	std::cout << "1000000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	start = std::chrono::system_clock::now();
+
+	t.start_timer();
 	generuoti_atsitiktinius("studentai10000000.txt", 10000000);
-	end = std::chrono::system_clock::now();
- 	elapsed = end - start;
-	std::cout << "Generavimas užtruko" << elapsed.count() << std::endl;
+	std::cout << "10000000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 }

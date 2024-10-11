@@ -59,7 +59,7 @@ std::vector<Studentas> irasyti_studentus() {
 	char testi{ 't' };
 
 	while (true) {
-		std::cout << "�ra�yti student�? (t/n)\n";
+		std::cout << "Įrašyti studentą?";
 		std::cin >> testi;
 
 		switch (testi)
@@ -101,55 +101,6 @@ void spausdinti_rezultatus(std::vector<Studentas> stud) {
 	std::cout << std::fixed << std::setprecision(2);
 	for (auto& s : stud)
 		spausdinti_stud_duom(s);
-}
-
-std::vector<Studentas> nuskaityti_faila(std::string failas) {
-	// Studentu suvedimas is failo
-
-	std::vector<Studentas> stud;
-	std::ifstream fr(failas);
-
-	if(fr.fail()){
-		std::cout << "Nėra failo\n";
-		return std::vector<Studentas>();
-	}
-
-	// Nuskaityti failo antraste(stulpelius)
-	// Parasyta su prielaida, kad pirmi du stulpeliai: Vardas, Pavarde, o paskutinis: Egz.
-	std::string header_str;
-	std::getline(fr, header_str, '\n');
-	
-	int nd_skaicius = 0;
-
-	// Nuskaitomas namu darbu kiekis su regex
-	// Daroma prielaida, kad namu darbu stulpeliai zymimi ND(skaicius)
-
-	// Sudarome regex expression ir jį paleidžiame per header_str.
-	const std::regex reg_expr("ND\\d+");
-
-	auto iterator = std::sregex_iterator(header_str.begin(), header_str.end(), reg_expr);
-	auto empty = std::sregex_iterator();
-
-	// Apskaičiuojame, kiek žodžių atitinka regex expression
-	nd_skaicius = std::distance(iterator, empty);
-
-	// Skaitomos eilutes, kol neprieis failo galo
-	while (!fr.eof()) {
-		Studentas s;
-
-		fr >> s.vardas >> s.pavarde;
-
-		int tmp_paz;
-		for (int i = 0; i < nd_skaicius; i++) {
-			fr >> tmp_paz;
-			s.nd_pazymiai.push_back(tmp_paz);
-		}
-		fr >> s.egz_pazymys;
-
-		stud.push_back(s);
-	}
-
-	return stud;
 }
 
 std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {

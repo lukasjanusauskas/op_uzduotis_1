@@ -6,6 +6,7 @@
 
 #include "studentas.h"
 #include "skaiciavimai.cpp"
+#include "timer.h"
 
 Studentas irasyti_studenta() {
 	// Vieno studento irasymas
@@ -131,6 +132,7 @@ void nuskaityti_faila(container &stud, std::string failas) {
 
 template <typename container>
 void isvesti_faila(const container &stud, std::string file_path) {
+	Timer t;
 	std::stringstream buffer;
 	// Spausdinti visu studentu duomenis
 	buffer << std::left << std::setw(20) << "Vardas" 
@@ -139,6 +141,8 @@ void isvesti_faila(const container &stud, std::string file_path) {
 	buffer << "---------------------------------------------------------------\n";
 	// Nustatomas tikslumas ir tik tada spausdinama
 	buffer << std::fixed << std::setprecision(2);
+
+	t.start_timer();
 	for (auto& s : stud){
 		
 		float vid = vidurkis(s.nd_pazymiai);
@@ -153,6 +157,6 @@ void isvesti_faila(const container &stud, std::string file_path) {
 	}
 
 	std::ofstream fr(file_path);
-	fr << buffer;
+	fr << buffer.rdbuf();
 	fr.close();
 }

@@ -15,6 +15,9 @@ struct Studentas {
 Studentas irasyti_studenta();
 
 template <typename container>
+void nuskaityti_faila(const container &stud, std::string failas);
+
+template <typename container>
 void irasyti_studentus(container &sarasas);
 void spausdinti_stud_duom(Studentas stud);
 

@@ -11,28 +11,30 @@
 
 #define MAX_RAND_PAZ 10
 
-Studentas generuoti_rand_stud(int n_tasis, int paz_skaicius) {
-	// rand() * vardai_ilgis duoda pseudo-atsitiktini indeksa
+Studentas generuoti_rand_stud(int n_tasis,
+							  int paz_skaicius,
+							  std::mt19937 mt,
+							  std::uniform_int_distribution<int> unif) {
 	Studentas s;
 	s.vardas = "Vardas" + std::to_string(n_tasis);
 	s.pavarde = "Pavarde" + std::to_string(n_tasis);
 
-	// rand() % MAX_RAND_PAZ duoda naturalu skaiciu [0, MAX_RAND_PAX)
-	// Taigi reikia prideti vieneta
 	for (paz_skaicius; paz_skaicius > 0; paz_skaicius--)
-		s.nd_pazymiai.push_back(rand() % 10 + 1);
+		s.nd_pazymiai.push_back(unif(mt) + 1);
 
-	s.egz_pazymys = rand() % 10 + 1;
+	s.egz_pazymys = unif(mt) + 1;
 
 	return s;
 }
 
 void generuoti_atsitiktinius(std::string file, unsigned int n) {
 	// Atsitiktinio studentu rinkinio genervaimas su vis kitokia "sekla", kad kas kart skirtusi rezultatas
-	srand(time(0));
+	auto time_now = std::chrono::high_resolution_clock::now();
+	std::mt19937 mt(time_now.time_since_epoch().count());
+	std::uniform_int_distribution<int> unif(0, 9);
 
 	Studentas stud;
-	int paz_skaicius = rand() % MAX_RAND_PAZ + 3; // Minimum trys namu darbai
+	int paz_skaicius = unif(mt) + 3;
 
 	std::stringstream output;
 	output << std::left << std::setw(20) << "Vardas"
@@ -43,7 +45,7 @@ void generuoti_atsitiktinius(std::string file, unsigned int n) {
 	output << "Egz.\n";
 
 	for (int i = 0; i < n; i++){
-		stud = generuoti_rand_stud(i, paz_skaicius);	
+		stud = generuoti_rand_stud(i, paz_skaicius, mt, unif);	
 		output << std::setw(20) << stud.vardas 
 		   << std::setw(20) << stud.pavarde;
 

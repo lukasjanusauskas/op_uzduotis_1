@@ -1,9 +1,13 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
 #include <random>
 #include <stdlib.h>
 #include <stdio.h>
 #include <chrono>
 
 #include "studentas.h"
+#include "timer.h"
 
 #define MAX_RAND_PAZ 10
 
@@ -61,20 +65,20 @@ void generuoti_penkis() {
 	generuoti_atsitiktinius("studentai1000.txt", 1000);
 	std::cout << "1000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	t.start_timer();
+	t.restart_timer();
 	generuoti_atsitiktinius("studentai10000.txt", 10000);
 	std::cout << "10000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	t.start_timer();
+	t.restart_timer();
 	generuoti_atsitiktinius("studentai100000.txt", 100000);
 	std::cout << "100000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
-	t.start_timer();
+	t.restart_timer();
 	generuoti_atsitiktinius("studentai1000000.txt", 1000000);
 	std::cout << "1000000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 
 
-	t.start_timer();
+	t.restart_timer();
 	generuoti_atsitiktinius("studentai10000000.txt", 10000000);
 	std::cout << "10000000 atsitiktinių generavimas užtruko " << t.get_time() << " s\n";
 }

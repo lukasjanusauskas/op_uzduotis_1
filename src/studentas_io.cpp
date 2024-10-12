@@ -2,6 +2,7 @@
 #include <fstream>
 #include <regex>
 #include <iomanip>
+#include <list>
 
 #include "studentas.h"
 #include "skaiciavimai.cpp"
@@ -53,9 +54,9 @@ ivesti:;
 	return stud;
 }
 
-std::vector<Studentas> irasyti_studentus() {
+template <typename container>
+void irasyti_studentus(container &sarasas) {
 	// Visu studentu irasimas komandineje eiluteje
-	std::vector<Studentas> sarasas;
 	char testi{ 't' };
 
 	while (true) {
@@ -70,7 +71,7 @@ std::vector<Studentas> irasyti_studentus() {
 			break;
 		// Jei nuspaudzia 'n', grazinama, nevyksta irasymas
 		case 'n':
-			return sarasas;
+			break;
 		// Jei nuspaudzia kazka kito, kartojamas klausimas
 		default:
 			break;
@@ -78,40 +79,14 @@ std::vector<Studentas> irasyti_studentus() {
 	}
 }
 
-void spausdinti_stud_duom(Studentas stud) {
-	// Spausdinti vieno studento duomenis
-	float vid = vidurkis(stud.nd_pazymiai);
-	float med = mediana(stud.nd_pazymiai);
-
-	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
-	std::cout << std::setw(14) << stud.vardas
-			  << std::setw(15) << stud.pavarde;
-	std::cout << std::left
-			  << std::setw(17) << galutinis(vid, stud.egz_pazymys) 
-			  << std::setw(17) << galutinis(med, stud.egz_pazymys) << std::endl;
-}
-
-void spausdinti_rezultatus(std::vector<Studentas> stud) {
-	// Spausdinti visu studentu duomenis
-	std::cout << std::left << std::setw(14) << "Vardas" 
-						   << std::setw(15) << "Pavardė" 
-						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
-	std::cout << "-------------------------------------------------------\n";
-	// Nustatomas tikslumas ir tik tada spausdinama
-	std::cout << std::fixed << std::setprecision(2);
-	for (auto& s : stud)
-		spausdinti_stud_duom(s);
-}
-
-std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
+template <typename container>
+void nuskaityti_faila(container &stud, std::string failas) {
 	// Studentu suvedimas is failo
-
-	std::vector<Studentas> stud;
 	std::ifstream fr(failas);
 
 	if(fr.fail()){
 		std::cout << "Nėra failo\n";
-		return std::vector<Studentas>();
+		return;
 	}
 
 	// Nuskaityti failo antraste(stulpelius)
@@ -152,35 +127,10 @@ std::vector<Studentas> nuskaityti_faila_greitas(std::string failas) {
 
 		stud.push_back(s);
 	}
-
-	return stud;
 }
 
-void isvesti_faila(std::vector<Studentas> stud, std::string file_path) {
-	std::ofstream fr(file_path);
-	// Spausdinti visu studentu duomenis
-	fr << std::left << std::setw(20) << "Vardas" 
-						   << std::setw(25) << "Pavardė" 
-						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
-	fr << "---------------------------------------------------------------\n";
-	// Nustatomas tikslumas ir tik tada spausdinama
-	fr << std::fixed << std::setprecision(2);
-	for (auto& s : stud){
-		
-		float vid = vidurkis(s.nd_pazymiai);
-		float med = mediana(s.nd_pazymiai);
-
-	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
-		fr << std::setw(20) << s.vardas
-			  	  << std::setw(25) << s.pavarde;
-		fr << std::left
-			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
-			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
-	}
-	fr.close();
-}
-
-void isvesti_faila_greitas(std::vector<Studentas> stud, std::string file_path){
+template <typename container>
+void isvesti_faila(const container &stud, std::string file_path) {
 	std::stringstream buffer;
 	// Spausdinti visu studentu duomenis
 	buffer << std::left << std::setw(20) << "Vardas" 
@@ -196,12 +146,13 @@ void isvesti_faila_greitas(std::vector<Studentas> stud, std::string file_path){
 
 	// Spausdinama, nustatant plocio minimuma(kuris retai virsijamas, tai beveik visada toks ir yra)
 		buffer << std::setw(20) << s.vardas
-			  	  << std::setw(25) << s.pavarde;
+			   << std::setw(25) << s.pavarde;
 		buffer << std::left
-			  	  << std::setw(17) << galutinis(vid, s.egz_pazymys) 
-			  	  << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
+			   << std::setw(17) << galutinis(vid, s.egz_pazymys) 
+			   << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
 	}
 
-	std::ofstream fw(file_path);
-	fw << buffer.rdbuf();
+	std::ofstream fr(file_path);
+	fr << buffer;
+	fr.close();
 }

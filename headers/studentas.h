@@ -13,8 +13,15 @@ struct Studentas {
 };
 
 Studentas irasyti_studenta();
-std::vector<Studentas> irasyti_studentus();
+
+template <typename container>
+void irasyti_studentus(container &sarasas);
 void spausdinti_stud_duom(Studentas stud);
-void spausdinti_rezultatus(std::vector<Studentas> stud);
+
+template <typename container>
+void spausdinti_rezultatus(container &stud);
+
+template <typename container>
+void isvesti_faila(const container &stud, std::string file_path);
 
 #endif

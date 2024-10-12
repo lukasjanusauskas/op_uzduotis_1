@@ -2,15 +2,19 @@
 #include "skaiciavimai.h"
 #include "util.h"
 
-#include "studentas_io.cpp"
 #include "stud_random.cpp"
 #include "stud_rikiavimas.cpp"
+#include "studentas_io.cpp"
 #include "timer.cpp"
 
 #include <chrono>
 
-void testas(std::string file_path);
-void pasirinkti_rikiavima(std::vector<Studentas>& stud);
+template <typename container>
+void testas(std::string file_path, container &stud);
+
+template<typename container>
+void pasirinkti_rikiavima(container &stud);
+
 void konsoles_dialogas();
 void testuoti_eiga();
 void testuoti_generavima();
@@ -30,21 +34,23 @@ void testuoti_generavima(){
 }
 
 void testuoti_eiga(){
-	testas("studentai1000.txt");
-	testas("studentai10000.txt");
-	testas("studentai100000.txt");
-	testas("studentai1000000.txt");
-	testas("studentai10000000.txt");
+	std::vector<Studentas> stud;
+
+	testas("studentai1000.txt", stud);
+	testas("studentai10000.txt", stud);
+	testas("studentai100000.txt", stud);
+	testas("studentai1000000.txt", stud);
+	testas("studentai10000000.txt", stud);
 }
 
-void testas(std::string file_path){
-	std::vector<Studentas> stud;
-	std::vector<Studentas> vargsai, galvos;
+template <typename container>
+void testas(std::string file_path, container &stud){
+	container vargsai, galvos;
 
 	Timer t;
 	// Ivedimas
 	t.start_timer();
-	stud = nuskaityti_faila_greitas(file_path);
+	nuskaityti_faila(stud, file_path);
 	std::cout << "Nuskaitymas failo " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	// Rikiavimas
@@ -60,8 +66,8 @@ void testas(std::string file_path){
 
 	// Isvedimas
 	t.restart_timer();
-	isvesti_faila_greitas(vargsai, "vargsai.txt");
-	isvesti_faila_greitas(galvos, "galvos.txt");
+	isvesti_faila(vargsai, "vargsai.txt");
+	isvesti_faila(galvos, "galvos.txt");
 	std::cout << "Išvedimas " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	std::cout << std::endl;
@@ -79,11 +85,11 @@ input_option:
 	switch (input)
 	{
 	case 't':
-		stud = irasyti_studentus();
+		irasyti_studentus(stud);
 		break;
 
 	case 'f':
-		stud = nuskaityti_faila_greitas("studentai10000.txt");
+		nuskaityti_faila(stud, "studentai10000.txt");
 		break;
 	
 	default:
@@ -95,7 +101,8 @@ input_option:
 	isvesti_faila(stud, "rezultatas.txt");
 }
 
-void pasirinkti_rikiavima(std::vector<Studentas>& stud){
+template <typename container>
+void pasirinkti_rikiavima(container &stud){
 	char input;
 
  sort_option:
@@ -111,8 +118,7 @@ void pasirinkti_rikiavima(std::vector<Studentas>& stud){
 
 	case 'p':
 		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
-										return s1.vardas.compare(s2.vardas) > 0;
-									});
+										return s1.vardas.compare(s2.vardas) > 0;});
 		break;
 	
 	default:

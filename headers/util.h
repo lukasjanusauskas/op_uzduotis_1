@@ -8,8 +8,11 @@ void generuoti_atsitiktinius(std::string file, unsigned int n);
 std::vector<Studentas> nuskaityti_faila(std::string failas);
 
 bool palyginti_rikiavimui(Studentas pirmas, Studentas antras);
-void rikiuoti_studentus(std::vector<Studentas>& stud);
 
-void kategorizuoti(std::vector<Studentas> stud);
+template <typename container>
+void rikiuoti_studentus(container &stud);
+
+template <typename container>
+void kategorizuoti(container &stud, container &vargsai, container &galvos);
 
 #endif

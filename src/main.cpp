@@ -20,8 +20,8 @@ void testuoti_eiga();
 void testuoti_generavima();
 
 int main() {
-	generuoti_penkis();
-	// testuoti_eiga();
+	// generuoti_penkis();
+	testuoti_eiga();
 	// testuoti_eiga();
 
 	return 0;

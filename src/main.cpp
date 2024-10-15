@@ -20,8 +20,8 @@ void testuoti_eiga();
 void testuoti_generavima();
 
 int main() {
-	generuoti_penkis();
-	// testuoti_eiga();
+	// generuoti_penkis();
+	testuoti_eiga();
 	// testuoti_eiga();
 
 	return 0;
@@ -34,13 +34,13 @@ void testuoti_generavima(){
 }
 
 void testuoti_eiga(){
-	std::vector<Studentas> stud;
+	std::list<Studentas> stud;
 
 	testas("studentai1000.txt", stud);
-	// testas("studentai10000.txt", stud);
-	// testas("studentai100000.txt", stud);
-	// testas("studentai1000000.txt", stud);
-	// testas("studentai10000000.txt", stud);
+	testas("studentai10000.txt", stud);
+	testas("studentai100000.txt", stud);
+	testas("studentai1000000.txt", stud);
+	testas("studentai10000000.txt", stud);
 }
 
 template <typename container>
@@ -63,9 +63,6 @@ void testas(std::string file_path, container &stud){
 	t.restart_timer();
 	kategorizuoti(stud, vargsai, galvos);
 	std::cout << "Skirstymas " << file_path << " užtruko " << t.get_time() << " s\n";
-
-	for(auto& v: stud)
-		std::cout << v.vardas << std::endl;
 
 	// Isvedimas
 	t.restart_timer();

@@ -6,42 +6,56 @@
 - Galima studentus nuskaityti iš konsolės, iš failo ar sugeneruoti atsitiktinai.
 - Išvedus studentai yra išrikiuoti.
 
-## Spartos testavimo rezultatai:
-Detalūs: https://vult-my.sharepoint.com/:x:/r/personal/lukas_janusauskas_mif_stud_vu_lt/Documents/spartos%20rezultatai.xlsx?d=w5ff4c173031b4c0a9e1a1aebb7b78ed8&csf=1&web=1&e=C2TGJa
+## Rezultatai su vektoriais
+- Nuskaitė 1000 per 0.00197
+- Surikiavo 1000 per 0.00186
+- Kategorizavo 1000 per 0.00122
+- Išvedė kaetegorizuotus 1000 per 0.12450
 
-#### 1000
-Genreravimas 0.00296973
-Nuskaitymas 0.002794428
-Rikiavimas 0.001796326
-Kategorizavimas 0.001775548
-Kateogrizuotų 0.013606956
+- Nuskaitė 10000 per 0.01750
+- Surikiavo 10000 per 0.01987
+- Kategorizavo 10000 per 0.00986
+- Išvedė kaetegorizuotus 10000 per 0.01757
 
-#### 10000
-Genreravimas 0.0265108
-Nuskaitymas 0.02618926
-Rikiavimas 0.0214071
-Kategorizavimas 0.01609842
-Kateogrizuotų 0.02373888
+- Nuskaitė 100000 per 0.18681
+- Surikiavo 100000 per 0.24747
+- Kategorizavo 100000 per 0.11630
+- Išvedė kaetegorizuotus 100000 per 0.18530
 
-#### 100000
-Genreravimas 0.2475758
-Nuskaitymas 0.23109
-Rikiavimas 0.2510222
-Kategorizavimas 0.1594558
-Kateogrizuotų 0.2249592
+- Nuskaitė 1000000 per 1.58344
+- Surikiavo 1000000 per 3.06426
+- Kategorizavo 1000000 per 1.06660
+- Išvedė kaetegorizuotus 1000000 per 1.58617
 
-#### 1000000
-Genreravimas 2.356948
-Nuskaitymas 1.230158
-Rikiavimas 3.09885
-Kategorizavimas 1.093374
-Kateogrizuotų 1.733554
+- Nuskaitė 10000000 per 14.40875
+- Surikiavo 10000000 per 36.57480
+- Kategorizavo 10000000 per 8.86304
+- Išvedė kaetegorizuotus 10000000 per 14.04815
 
-#### 10000000
-Genreravimas 20.1852
-Nuskaitymas 16.02384
-Rikiavimas 36.55344
-Kategorizavimas 12.102
-Kateogrizuotų 17.32354
+## Rezultatai su sarasais
+- Nuskaitė 1000 per 0.00511
+- Surikiavo 1000 per 0.03404
+- Kategorizavo 1000 per 0.03394
+- Išvedė kaetegorizuotus 1000 per 0.00434
+
+- Nuskaitė 10000 per 0.01414
+- Surikiavo 10000 per 0.01373
+- Kategorizavo 10000 per 0.01385
+- Išvedė kaetegorizuotus 10000 per 0.01502
+
+- Nuskaitė 100000 per 0.16419
+- Surikiavo 100000 per 0.15456
+- Kategorizavo 100000 per 0.15568
+- Išvedė kaetegorizuotus 100000 per 0.15422
+
+- Nuskaitė 1000000 per 1.42278
+- Surikiavo 1000000 per 1.35627
+- Kategorizavo 1000000 per 1.37018
+- Išvedė kaetegorizuotus 1000000 per 1.38075
+
+- Nuskaitė 10000000 per 14.15629
+- Surikiavo 10000000 per 14.69244
+- Kategorizavo 10000000 per 14.13242
+- Išvedė kaetegorizuotus 10000000 per 14.55400
 
 > Kompiuteris: intecl Core i7-4800MQ (max freq. 3.7 GHz), 16 Gb ram

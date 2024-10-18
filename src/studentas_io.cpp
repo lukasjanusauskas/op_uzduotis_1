@@ -61,7 +61,7 @@ void irasyti_studentus(container &sarasas) {
 	char testi{ 't' };
 
 	while (true) {
-		std::cout << "Įrašyti studentą?";
+		std::cout << "Įrašyti studentą? ";
 		std::cin >> testi;
 
 		switch (testi)
@@ -72,7 +72,7 @@ void irasyti_studentus(container &sarasas) {
 			break;
 		// Jei nuspaudzia 'n', grazinama, nevyksta irasymas
 		case 'n':
-			break;
+			return;
 		// Jei nuspaudzia kazka kito, kartojamas klausimas
 		default:
 			break;

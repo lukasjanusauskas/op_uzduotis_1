@@ -21,8 +21,8 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	testuoti_eiga();
 	// testuoti_eiga();
+	konsoles_dialogas();
 
 	return 0;
 }
@@ -90,6 +90,7 @@ input_option:
 
 	case 'f':
 		nuskaityti_faila(stud, "studentai10000.txt");
+		std::cout << &(*stud.begin());
 		break;
 	
 	default:

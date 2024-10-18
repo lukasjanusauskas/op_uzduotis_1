@@ -16,8 +16,8 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	// testuoti_eiga();
-	konsoles_dialogas();
+	testuoti_eiga();
+	// konsoles_dialogas();
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28.2)
+cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 project(studentai VERSION 0.1)

@@ -9,15 +9,13 @@
 #include <chrono>
 
 void testas(std::string file_path);
-void pasirinkti_rikiavima(std::vector<Studentas>& stud);
 void konsoles_dialogas();
 void testuoti_eiga();
 void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	testuoti_eiga();
-	// konsoles_dialogas();
+	konsoles_dialogas();
 
 	return 0;
 }
@@ -51,22 +49,15 @@ void testas(std::string file_path){
 	std::cout << "Nuskaitymas failo " << file_path << " užtruko " << elapsed.count() << "s\n";
 
 	// Rikiavimas
-	start = std::chrono::system_clock::now();
-	rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
-									return s1.vardas.compare(s2.vardas) > 0;});
+	pasirinkti_rikiavima(stud, file_path);
 
 	end = std::chrono::system_clock::now();
 	elapsed = end - start;
-
-	std::cout << "Rikiavimas studentų iš failo " << file_path << " užtruko " << elapsed.count() << "s\n";
 
 	// Kategorizavimas
 	start = std::chrono::system_clock::now();
 
 	kategorizuoti(stud, vargsai, galvos);
-
-	end = std::chrono::system_clock::now();
-	elapsed = end - start;
 
 	std::cout << "Kategorizavimas studentų iš failo " << file_path << " užtruko " << elapsed.count() << "s\n";
 
@@ -99,19 +90,15 @@ input_option:
 		break;
 
 	case 'f':
-		stud = nuskaityti_faila("studentai10000.txt");
+	 	testas("studentai1000000.txt");
 		break;
 	
 	default:
 	 	goto input_option;
 	}
-
-	pasirinkti_rikiavima(stud);
-
-	isvesti_faila(stud, "rezultatas.txt");
 }
 
-void pasirinkti_rikiavima(std::vector<Studentas>& stud){
+void pasirinkti_rikiavima(std::vector<Studentas>& stud, std::string file_path){
 	char input;
 	std::chrono::time_point<std::chrono::system_clock> start, end;
 	std::chrono::duration<double> elapsed;
@@ -123,17 +110,29 @@ void pasirinkti_rikiavima(std::vector<Studentas>& stud){
 	switch (input)
 	{
 	case 'v':
+		start = std::chrono::system_clock::now();
+
 		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
 										return s1.vardas.compare(s2.vardas) > 0;});
+
+		end = std::chrono::system_clock::now();
+		elapsed = end - start;
 		break;
 
 	case 'p':
+		start = std::chrono::system_clock::now();
+
 		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
 										return s1.vardas.compare(s2.vardas) > 0;
 									});
+
+		end = std::chrono::system_clock::now();
+		elapsed = end - start;
 		break;
 	
 	default:
 	 	goto sort_option;
 	}
+
+	std::cout << "Rikiavimas studentų iš failo " << file_path << " užtruko " << elapsed.count() << "s\n";
 }

@@ -13,16 +13,18 @@ template <typename container>
 void testas(std::string file_path, container &stud);
 
 template<typename container>
-void pasirinkti_rikiavima(container &stud);
+void pasirinkti_rikiavima(container &stud, std::string file_path);
 
-void konsoles_dialogas();
+template <typename container>
+void konsoles_dialogas(container& stud);
+
 void testuoti_eiga();
 void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	// testuoti_eiga();
-	konsoles_dialogas();
+	std::vector<Studentas> stud;
+	konsoles_dialogas(stud);
 
 	return 0;
 }
@@ -44,7 +46,7 @@ void testuoti_eiga(){
 }
 
 template <typename container>
-void testas(std::string file_path, container &stud){
+void testas(std::string file_path, container& stud){
 	container vargsai, galvos;
 
 	Timer t;
@@ -54,10 +56,7 @@ void testas(std::string file_path, container &stud){
 	std::cout << "Nuskaitymas failo " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	// Rikiavimas
-	t.restart_timer();
-	rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
-									return s1.vardas.compare(s2.vardas) > 0;});
-	std::cout << "Rikiavimas " << file_path << " užtruko " << t.get_time() << " s\n";
+	pasirinkti_rikiavima(stud, file_path);
 
 	// Kategorizavimas
 	t.restart_timer();
@@ -73,9 +72,9 @@ void testas(std::string file_path, container &stud){
 	std::cout << std::endl;
 }
 
-void konsoles_dialogas(){
+template <typename container>
+void konsoles_dialogas(container& stud){
 	char input;
-	std::vector<Studentas> stud;
 
 input_option:
 
@@ -89,37 +88,40 @@ input_option:
 		break;
 
 	case 'f':
-		nuskaityti_faila(stud, "studentai10000.txt");
-		std::cout << &(*stud.begin());
+		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
+	 	testas("studentai100000.txt", stud);
+		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
 		break;
 	
 	default:
 	 	goto input_option;
 	}
-
-	pasirinkti_rikiavima(stud);
-
-	isvesti_faila(stud, "rezultatas.txt");
 }
 
 template <typename container>
-void pasirinkti_rikiavima(container &stud){
+void pasirinkti_rikiavima(container &stud, std::string file_path){
 	char input;
 
  sort_option:
 	std::cout << "Rikiuoti pagal: (v)ardus ar (p)avardes?\n";
 	std::cin >> input;
 
+	Timer t;
+
 	switch (input)
 	{
 	case 'v':
+		t.start_timer();
 		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
 										return s1.vardas.compare(s2.vardas) > 0;});
+		std::cout << "Rikiavimas užtruko: " << t.get_time();
 		break;
 
 	case 'p':
+		t.start_timer();
 		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
 										return s1.vardas.compare(s2.vardas) > 0;});
+		std::cout << "Rikiavimas užtruko: " << t.get_time();
 		break;
 	
 	default:

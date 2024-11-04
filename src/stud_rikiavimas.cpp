@@ -19,7 +19,42 @@ void rikiuoti_studentus(std::list<Studentas>& stud,
 }
 
 template <typename container>
-void kategorizuoti(container &stud, container &vargsai, container &galvos) {
+void kategorizuoti1(container &stud, container &vargsai, container &galvos) {
+	for(auto& s: stud){
+		float med = mediana(s.nd_pazymiai);
+
+		if(galutinis(med, s.egz_pazymys) < 5)
+			vargsai.push_back(s);
+		else
+			galvos.push_back(s);
+	}
+
+	stud.clear();
+}
+
+template <typename container>
+void kategorizuoti2(container &stud, container &vargsai) {
+	auto it = stud.begin();
+
+	while(it != stud.end()){
+		std::cout << it->vardas << std::endl;
+		float med = mediana(it->nd_pazymiai);
+
+		if(galutinis(med, it->egz_pazymys) < 5){
+			vargsai.push_back(*it);
+
+			auto next = std::next(it, 1);
+			stud.erase(it);
+
+			it = next;
+		}
+
+		else it = next(it, 1);
+	}
+}
+
+template <typename container>
+void kategorizuoti3(container &stud, container &vargsai, container &galvos) {
 	for(auto& s: stud){
 		float med = mediana(s.nd_pazymiai);
 

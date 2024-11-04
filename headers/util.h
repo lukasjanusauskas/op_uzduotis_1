@@ -15,4 +15,10 @@ void rikiuoti_studentus(container &stud);
 template <typename container>
 void kategorizuoti(container &stud, container &vargsai, container &galvos);
 
+template <typename container>
+void kategorizuoti2(container &stud, container &vargsai);
+
+template <typename container>
+void kategorizuoti3(container &stud, container &vargsai, container &galvos);
+
 #endif

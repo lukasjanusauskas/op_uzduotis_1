@@ -9,8 +9,10 @@
 
 #include <chrono>
 
+/*
 template <typename container>
 void testas(std::string file_path, container &stud);
+*/
 
 template<typename container>
 void pasirinkti_rikiavima(container &stud, std::string file_path);
@@ -23,8 +25,10 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	std::vector<Studentas> stud;
+	std::list<Studentas> stud, vargsai;
 	konsoles_dialogas(stud);
+
+	kategorizuoti2(stud, vargsai);
 
 	return 0;
 }
@@ -35,6 +39,7 @@ void testuoti_generavima(){
 	}
 }
 
+/*
 void testuoti_eiga(){
 	std::list<Studentas> stud;
 
@@ -71,6 +76,7 @@ void testas(std::string file_path, container& stud){
 
 	std::cout << std::endl;
 }
+*/
 
 template <typename container>
 void konsoles_dialogas(container& stud){
@@ -89,7 +95,7 @@ input_option:
 
 	case 'f':
 		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
-	 	testas("studentai100000.txt", stud);
+	 	// testas("studentai100000.txt", stud);
 		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
 		break;
 	

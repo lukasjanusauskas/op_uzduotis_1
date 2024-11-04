@@ -2,6 +2,7 @@
 #include <list>
 #include <functional>
 #include "studentas.h"
+#include "skaiciavimai.h"
 
 bool pagal_varda(Studentas pirmas, Studentas antras) { return pirmas.vardas.compare(antras.vardas) < 0; }
 bool pagal_pavarde(Studentas pirmas, Studentas antras) { return pirmas.pavarde.compare(antras.vardas) < 0; }
@@ -33,11 +34,10 @@ void kategorizuoti1(container &stud, container &vargsai, container &galvos) {
 }
 
 template <typename container>
-void kategorizuoti2(container &stud, container &vargsai) {
+void kategorizuoti2(container &stud, container &vargsai, container &galvos) {
 	auto it = stud.begin();
 
 	while(it != stud.end()){
-		std::cout << it->vardas << std::endl;
 		float med = mediana(it->nd_pazymiai);
 
 		if(galutinis(med, it->egz_pazymys) < 5){
@@ -51,6 +51,8 @@ void kategorizuoti2(container &stud, container &vargsai) {
 
 		else it = next(it, 1);
 	}
+
+	galvos = stud;
 }
 
 template <typename container>

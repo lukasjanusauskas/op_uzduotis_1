@@ -3,16 +3,14 @@
 #include "util.h"
 
 #include "stud_random.cpp"
-#include "stud_rikiavimas.cpp"
 #include "studentas_io.cpp"
+#include "stud_rikiavimas.cpp"
 #include "timer.cpp"
 
 #include <chrono>
 
-/*
 template <typename container>
 void testas(std::string file_path, container &stud);
-*/
 
 template<typename container>
 void pasirinkti_rikiavima(container &stud, std::string file_path);
@@ -25,10 +23,10 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	std::list<Studentas> stud, vargsai;
+	std::list<Studentas> stud;
 	konsoles_dialogas(stud);
 
-	kategorizuoti2(stud, vargsai);
+	// kategorizuoti2(stud, vargsai);
 
 	return 0;
 }
@@ -37,17 +35,6 @@ void testuoti_generavima(){
 	for(int i = 0; i < 5; i++){
 		generuoti_penkis();
 	}
-}
-
-/*
-void testuoti_eiga(){
-	std::list<Studentas> stud;
-
-	testas("studentai1000.txt", stud);
-	testas("studentai10000.txt", stud);
-	testas("studentai100000.txt", stud);
-	testas("studentai1000000.txt", stud);
-	testas("studentai10000000.txt", stud);
 }
 
 template <typename container>
@@ -65,7 +52,7 @@ void testas(std::string file_path, container& stud){
 
 	// Kategorizavimas
 	t.restart_timer();
-	kategorizuoti(stud, vargsai, galvos);
+	kategorizuoti2(stud, vargsai, galvos);
 	std::cout << "Skirstymas " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	// Isvedimas
@@ -76,7 +63,6 @@ void testas(std::string file_path, container& stud){
 
 	std::cout << std::endl;
 }
-*/
 
 template <typename container>
 void konsoles_dialogas(container& stud){
@@ -95,7 +81,7 @@ input_option:
 
 	case 'f':
 		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
-	 	// testas("studentai100000.txt", stud);
+	 	testas("studentai100000.txt", stud);
 		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
 		break;
 	
@@ -104,33 +90,58 @@ input_option:
 	}
 }
 
+bool pagal_galutini(Studentas pirmas, Studentas antras) {
+	float vid1 = vidurkis(pirmas.nd_pazymiai),
+				vid2 = vidurkis(antras.nd_pazymiai);
+
+	float gal1 = galutinis(vid1, pirmas.egz_pazymys),
+				gal2 = galutinis(vid2, pirmas.egz_pazymys);
+
+	return gal1 > gal2;
+}
+
 template <typename container>
-void pasirinkti_rikiavima(container &stud, std::string file_path){
+void pasirinkti_rikiavima(container& stud, std::string file_path){
 	char input;
+	std::chrono::time_point<std::chrono::system_clock> start, end;
+	std::chrono::duration<double> elapsed;
 
  sort_option:
-	std::cout << "Rikiuoti pagal: (v)ardus ar (p)avardes?\n";
+	std::cout << "Rikiuoti pagal: (v)ardus, (p)avardes ar (g)alutinį pažymį?\n";
 	std::cin >> input;
-
-	Timer t;
 
 	switch (input)
 	{
 	case 'v':
-		t.start_timer();
-		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
-										return s1.vardas.compare(s2.vardas) > 0;});
-		std::cout << "Rikiavimas užtruko: " << t.get_time();
+		start = std::chrono::system_clock::now();
+
+		rikiuoti_studentus(stud, pagal_varda);
+
+		end = std::chrono::system_clock::now();
+		elapsed = end - start;
 		break;
 
 	case 'p':
-		t.start_timer();
-		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
-										return s1.vardas.compare(s2.vardas) > 0;});
-		std::cout << "Rikiavimas užtruko: " << t.get_time();
+		start = std::chrono::system_clock::now();
+
+		rikiuoti_studentus(stud, pagal_pavarde);
+
+		end = std::chrono::system_clock::now();
+		elapsed = end - start;
+		break;
+
+	case 'g':
+		start = std::chrono::system_clock::now();
+
+		rikiuoti_studentus(stud, pagal_galutini);
+
+		end = std::chrono::system_clock::now();
+		elapsed = end - start;
 		break;
 	
 	default:
 	 	goto sort_option;
 	}
+
+	std::cout << "Rikiavimas studentų iš failo " << file_path << " užtruko " << elapsed.count() << "s\n";
 }

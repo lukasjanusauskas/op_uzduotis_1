@@ -126,6 +126,7 @@ void nuskaityti_faila(container &stud, std::string failas) {
 		}
 		buffer >> s.egz_pazymys;
 
+		s.galutinis = galutinis(vidurkis(s.nd_pazymiai), s.egz_pazymys);
 		stud.push_back(s);
 	}
 }

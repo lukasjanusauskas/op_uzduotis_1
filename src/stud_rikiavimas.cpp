@@ -55,16 +55,15 @@ void kategorizuoti2(container &stud, container &vargsai, container &galvos) {
 	galvos = stud;
 }
 
-template <typename container>
-void kategorizuoti3(container &stud, container &vargsai, container &galvos) {
-	for(auto& s: stud){
-		float med = mediana(s.nd_pazymiai);
+void kategorizuoti3(std::vector<Studentas> &stud, std::vector<Studentas>  &vargsai, std::vector<Studentas> &galvos) {
+	// Partition
+	auto it = std::partition(stud.begin(), stud.end(),
+													 [](Studentas &s) { return s.galutinis < 5; });
 
-		if(galutinis(med, s.egz_pazymys) < 5)
-			vargsai.push_back(s);
-		else
-			galvos.push_back(s);
-	}
+	vargsai.reserve(stud.size());
+	galvos.reserve(stud.size());
 
-	stud.clear();
+	// Copy 
+	std::copy(stud.begin(), it, std::back_inserter(vargsai));
+	std::copy(it, stud.end(), std::back_inserter(galvos));
 }

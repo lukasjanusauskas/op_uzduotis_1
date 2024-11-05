@@ -23,10 +23,8 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	std::list<Studentas> stud;
+	std::vector<Studentas> stud;
 	konsoles_dialogas(stud);
-
-	// kategorizuoti2(stud, vargsai);
 
 	return 0;
 }
@@ -43,25 +41,19 @@ void testas(std::string file_path, container& stud){
 
 	Timer t;
 	// Ivedimas
-	t.start_timer();
 	nuskaityti_faila(stud, file_path);
-	std::cout << "Nuskaitymas failo " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	// Rikiavimas
 	pasirinkti_rikiavima(stud, file_path);
 
 	// Kategorizavimas
 	t.restart_timer();
-	kategorizuoti2(stud, vargsai, galvos);
+	kategorizuoti3(stud, vargsai, galvos);
 	std::cout << "Skirstymas " << file_path << " užtruko " << t.get_time() << " s\n";
 
 	// Isvedimas
-	t.restart_timer();
 	isvesti_faila(vargsai, "vargsai.txt");
 	isvesti_faila(galvos, "galvos.txt");
-	std::cout << "Išvedimas " << file_path << " užtruko " << t.get_time() << " s\n";
-
-	std::cout << std::endl;
 }
 
 template <typename container>
@@ -69,6 +61,7 @@ void konsoles_dialogas(container& stud){
 	char input;
 
 input_option:
+	std::string path = "studentai1000000.txt";
 
 	std::cout << "Kaip įvesti studentus? Terminale - (t), Faile - (f)\n";
 	std::cin >> input;
@@ -80,9 +73,8 @@ input_option:
 		break;
 
 	case 'f':
-		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
-	 	testas("studentai100000.txt", stud);
-		std::cout << "Konteinerio adresas " << &(*stud.begin()) << std::endl;
+		for(int i = 0; i < 5; i++)
+	 		testas(path, stud);
 		break;
 	
 	default:
@@ -91,13 +83,7 @@ input_option:
 }
 
 bool pagal_galutini(Studentas pirmas, Studentas antras) {
-	float vid1 = vidurkis(pirmas.nd_pazymiai),
-				vid2 = vidurkis(antras.nd_pazymiai);
-
-	float gal1 = galutinis(vid1, pirmas.egz_pazymys),
-				gal2 = galutinis(vid2, pirmas.egz_pazymys);
-
-	return gal1 > gal2;
+	return pirmas.galutinis > antras.galutinis;
 }
 
 template <typename container>

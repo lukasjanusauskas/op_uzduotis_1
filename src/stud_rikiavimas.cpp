@@ -60,9 +60,6 @@ void kategorizuoti3(std::vector<Studentas> &stud, std::vector<Studentas>  &vargs
 	auto it = std::partition(stud.begin(), stud.end(),
 													 [](Studentas &s) { return s.galutinis < 5; });
 
-	vargsai.reserve(stud.size());
-	galvos.reserve(stud.size());
-
 	// Copy 
 	std::copy(stud.begin(), it, std::back_inserter(vargsai));
 	std::copy(it, stud.end(), std::back_inserter(galvos));

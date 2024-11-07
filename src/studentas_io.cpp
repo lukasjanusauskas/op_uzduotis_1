@@ -138,7 +138,7 @@ void isvesti_faila(const container &stud, std::string file_path) {
 	// Spausdinti visu studentu duomenis
 	buffer << std::left << std::setw(20) << "Vardas" 
 						   << std::setw(25) << "Pavardė" 
-						   << "Galutinis (vid.) " << "Galutinis(med.)\n ";
+						   << "Galutinis (vid.)\n";
 	buffer << "---------------------------------------------------------------\n";
 	// Nustatomas tikslumas ir tik tada spausdinama
 	buffer << std::fixed << std::setprecision(2);
@@ -153,8 +153,7 @@ void isvesti_faila(const container &stud, std::string file_path) {
 		buffer << std::setw(20) << s.vardas
 			   << std::setw(25) << s.pavarde;
 		buffer << std::left
-			   << std::setw(17) << galutinis(vid, s.egz_pazymys) 
-			   << std::setw(17) << galutinis(med, s.egz_pazymys) << std::endl;
+			   << std::setw(17) << s.galutinis << "\n";
 	}
 
 	std::ofstream fr(file_path);

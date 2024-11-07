@@ -23,7 +23,7 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	std::vector<Studentas> stud;
+	std::list<Studentas> stud;
 	konsoles_dialogas(stud);
 
 	return 0;
@@ -101,7 +101,7 @@ void pasirinkti_rikiavima(container& stud, std::string file_path){
 	case 'v':
 		start = std::chrono::system_clock::now();
 
-		std::sort(stud.begin(), stud.end(), [](Studentas &s1, Studentas &s2){
+		rikiuoti_studentus(stud, [](Studentas &s1, Studentas &s2){
 			return s1.vardas.compare(s2.vardas) > 0;
 		});
 
@@ -112,7 +112,7 @@ void pasirinkti_rikiavima(container& stud, std::string file_path){
 	case 'p':
 		start = std::chrono::system_clock::now();
 
-		std::sort(stud.begin(), stud.end(), [](Studentas &s1, Studentas &s2){
+		rikiuoti_studentus(stud, [](Studentas &s1, Studentas &s2){
 			return s1.pavarde.compare(s2.pavarde) > 0;
 		});
 
@@ -123,7 +123,7 @@ void pasirinkti_rikiavima(container& stud, std::string file_path){
 	case 'g':
 		start = std::chrono::system_clock::now();
 
-		std::sort(stud.begin(), stud.end(), [](Studentas &s1, Studentas &s2){
+		rikiuoti_studentus(stud, [](Studentas &s1, Studentas &s2){
 			return s1.galutinis > s2.galutinis;
 		});
 

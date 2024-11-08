@@ -1,61 +1,46 @@
 # Objektinio programavimo (IND studijos)  1 užduotis
 
-## Studentų duomenų bazė:
+## Instaliavimas ir paleidimas
+
+Instaliuoti galima su `git clone` komanda: .
+Paleisdimui naudojamas `cmake`. 
+Kompiliavimui užtenka paleisti `run.sh`.
+Sukompiliavimus executable `main` bus direktorijoje `build` todėl Unix sistemose reikia paleisti `./build/main`.
+
+## v0.1
+---
+### Studentų duomenų bazė:
 - Duomenys saugomi struktūroje `Studentas`
 - Galutinis pažymys skaičiuojamas pagal formulę: *0.4 * namų darbų pažymys + 0.6 * egzamino pažymys*.
 - Galima studentus nuskaityti iš konsolės, iš failo ar sugeneruoti atsitiktinai.
 - Išvedus studentai yra išrikiuoti.
 
-## Rezultatai su vektoriais
-- Nuskaitė 1000 per 0.00197
-- Surikiavo 1000 per 0.00186
-- Kategorizavo 1000 per 0.00122
-- Išvedė kaetegorizuotus 1000 per 0.12450
+## v0.2
+---
+- Pridėtas skirstymas į dvi kategorijas: vargšai ir galvos.
+- Atlikti matavimai.
 
-- Nuskaitė 10000 per 0.01750
-- Surikiavo 10000 per 0.01987
-- Kategorizavo 10000 per 0.00986
-- Išvedė kaetegorizuotus 10000 per 0.01757
+#### Rezultatai su `std::vector`
 
-- Nuskaitė 100000 per 0.18681
-- Surikiavo 100000 per 0.24747
-- Kategorizavo 100000 per 0.11630
-- Išvedė kaetegorizuotus 100000 per 0.18530
+![Turėjo būti screenshot](screenshots/vector.png "Matavimai")
 
-- Nuskaitė 1000000 per 1.58344
-- Surikiavo 1000000 per 3.06426
-- Kategorizavo 1000000 per 1.06660
-- Išvedė kaetegorizuotus 1000000 per 1.58617
+#### Išvada: visų algoritmų greičiai yra $O(n)$, o rikiavimas, asimptotiškai, lėtesnis $O(nlogn)$
 
-- Nuskaitė 10000000 per 14.40875
-- Surikiavo 10000000 per 36.57480
-- Kategorizavo 10000000 per 8.86304
-- Išvedė kaetegorizuotus 10000000 per 14.04815
 
-## Rezultatai su sarasais
-- Nuskaitė 1000 per 0.00511
-- Surikiavo 1000 per 0.03404
-- Kategorizavo 1000 per 0.03394
-- Išvedė kaetegorizuotus 1000 per 0.00434
+## v0.3
+---
+- Realizuotos funkcijos su šablonais ir išmatuoti `std::list` greičiai.
 
-- Nuskaitė 10000 per 0.01414
-- Surikiavo 10000 per 0.01373
-- Kategorizavo 10000 per 0.01385
-- Išvedė kaetegorizuotus 10000 per 0.01502
+#### Rezultatai su `std::list`
 
-- Nuskaitė 100000 per 0.16419
-- Surikiavo 100000 per 0.15456
-- Kategorizavo 100000 per 0.15568
-- Išvedė kaetegorizuotus 100000 per 0.15422
-
-- Nuskaitė 1000000 per 1.42278
-- Surikiavo 1000000 per 1.35627
-- Kategorizavo 1000000 per 1.37018
-- Išvedė kaetegorizuotus 1000000 per 1.38075
-
-- Nuskaitė 10000000 per 14.15629
-- Surikiavo 10000000 per 14.69244
-- Kategorizavo 10000000 per 14.13242
-- Išvedė kaetegorizuotus 10000000 per 14.55400
+![Turėjo būti screenshot](screenshots/list.png "Matavimai")
 
 > Kompiuteris: intecl Core i7-4800MQ (max freq. 3.7 GHz), 16 Gb ram
+
+## v0.4
+---
+- Realizuotos skirstymo strategijos.
+
+![Turėjo būti screenshot](screenshots/rusiavimas.png "Matavimai")
+
+#### Išvada: 2 strategija su `std::vector` nes jos greitis, asimptotiškai yra $O(n)$. Tuo tarpu, greičiausiai veikia 3 strategija, nes naudotos optimzuotos funkcijos iš STL.

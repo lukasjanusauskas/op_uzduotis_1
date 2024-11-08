@@ -33,9 +33,7 @@ void kategorizuoti2(container &stud, container &vargsai, container &galvos) {
 	auto it = stud.begin();
 
 	while(it != stud.end()){
-		float med = mediana(it->nd_pazymiai);
-
-		if(galutinis(med, it->egz_pazymys) < 5){
+		if(it->galutinis < 5){
 			vargsai.push_back(*it);
 
 			auto next = std::next(it, 1);
@@ -59,4 +57,6 @@ void kategorizuoti3(container &stud, container  &vargsai, container &galvos) {
 	// Copy 
 	vargsai.insert (vargsai.begin(), stud.begin(), it);
 	galvos.insert (galvos.begin(), it, stud.end());
+
+	stud.clear();
 }

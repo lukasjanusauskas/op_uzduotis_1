@@ -30,7 +30,7 @@ int main() {
 }
 
 void testuoti_generavima(){
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < 3; i++){
 		generuoti_penkis();
 	}
 }
@@ -73,17 +73,13 @@ input_option:
 		break;
 
 	case 'f':
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 3; i++)
 	 		testas(path, stud);
 		break;
 	
 	default:
 	 	goto input_option;
 	}
-}
-
-bool pagal_galutini(Studentas pirmas, Studentas antras) {
-	return pirmas.galutinis > antras.galutinis;
 }
 
 template <typename container>

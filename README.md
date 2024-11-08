@@ -37,7 +37,7 @@ Sukompiliavimus executable `main` bus direktorijoje `build` todėl Unix sistemos
 
 > Kompiuteris: intecl Core i7-4800MQ (max freq. 3.7 GHz), 16 Gb ram
 
-## v0.4
+## v1.0
 ---
 - Realizuotos skirstymo strategijos.
 

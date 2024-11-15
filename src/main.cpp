@@ -103,7 +103,7 @@ void pasirinkti_rikiavima(container &stud, std::string file_path){
 	char input;
 
  sort_option:
-	std::cout << "Rikiuoti pagal: (v)ardus ar (p)avardes?\n";
+	std::cout << "Rikiuoti pagal: (v)ardus, (p)avardes ar (g)alutinį pažymį?\n";
 	std::cin >> input;
 
 	Timer t;
@@ -124,6 +124,13 @@ void pasirinkti_rikiavima(container &stud, std::string file_path){
 		std::cout << "Rikiavimas užtruko: " << t.get_time();
 		break;
 	
+	case 'g':
+		t.start_timer();
+		rikiuoti_studentus(stud, [](Studentas const& s1, Studentas const& s2){
+										return s1.galutinis > s2.galutinis; });
+		std::cout << "Rikiavimas užtruko: " << t.get_time();
+		break;
+
 	default:
 	 	goto sort_option;
 	}

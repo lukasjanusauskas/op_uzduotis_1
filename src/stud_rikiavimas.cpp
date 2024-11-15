@@ -21,9 +21,9 @@ void rikiuoti_studentus(std::list<Studentas>& stud,
 template <typename container>
 void kategorizuoti(container &stud, container &vargsai, container &galvos) {
 	for(auto& s: stud){
-		float med = mediana(s.nd_pazymiai);
+		float vid = vidurkis(s.nd_pazymiai);
 
-		if(galutinis(med, s.egz_pazymys) < 5)
+		if(galutinis(vid, s.egz_pazymys) < 5)
 			vargsai.push_back(s);
 		else
 			galvos.push_back(s);

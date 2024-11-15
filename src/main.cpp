@@ -23,7 +23,7 @@ void testuoti_generavima();
 
 int main() {
 	// generuoti_penkis();
-	std::vector<Studentas> stud;
+	std::list<Studentas> stud;
 	konsoles_dialogas(stud);
 
 	return 0;
